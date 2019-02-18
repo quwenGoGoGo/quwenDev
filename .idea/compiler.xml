@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="quwen-web" />
+        <module name="quwencore" />
+        <module name="quwendb" />
+        <module name="quwenweb" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="quwen" target="1.8" />
+      <module name="quwen-web" target="1.8" />
+      <module name="quwencore" target="1.8" />
+      <module name="quwendb" target="1.8" />
+      <module name="quwenweb" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="quwen" options="-parameters" />
+      <module name="quwencore" options="-parameters" />
+      <module name="quwendb" options="-parameters" />
+      <module name="quwenweb" options="-parameters" />
+    </option>
+  </component>
+</project>
