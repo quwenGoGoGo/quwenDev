@@ -67,7 +67,7 @@ public class CommentController {
     }
 
     @RequestMapping("delete")
-    @ResponseBody
+    @ResponseBody//ajax需要加这个注解来异步获取数据
     public String delComment(@RequestParam HashMap<String,String> map) {
         String commentID=map.get("id");
         Long id = Long.parseLong(commentID);

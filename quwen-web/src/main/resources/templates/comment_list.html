@@ -55,6 +55,7 @@
       <th>用户</th>
       <th>评论内容</th>
       <th>评论时间</th>
+      <th>新闻</th>
       <th>操作</th>
     </thead>
     <tbody>
@@ -67,6 +68,7 @@
       <td th:text="${comment.userID}">小红</td>
       <td th:text="${comment.commentContent}">13000000000</td>
       <td th:text="${comment.commentDate}">2017-01-01 11:11:42</td>
+      <td th:text="${comment.news.newsID}">2</td>
       <td class="td-manage">
         <!--<a title="编辑"  th:onclick="x_admin_show('编辑','/cate/edit/'+${Cate.cateID})" href="javascript:;">-->
         <!--<a th:href="@{'./edit/'+${Cate.cateID}}">-->

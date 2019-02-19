@@ -61,6 +61,15 @@
                        autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label for="newsID" class="layui-form-label">
+                <span class="x-red">*</span>新闻
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="newsID" name="newsID" th:field="${comment.news.newsID}" required="" lay-verify="sort"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
         <!--<div class="layui-form-item">-->
         <!--<label for="L_repass" class="layui-form-label">-->
         <!--</label>-->

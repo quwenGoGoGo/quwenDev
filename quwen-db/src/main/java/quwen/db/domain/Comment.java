@@ -13,7 +13,7 @@ public class Comment {
     private String commentContent;
     private Date commentDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
     private News news;
 
