@@ -38,8 +38,16 @@ public class News {
     @Column(columnDefinition = "bit default 1")
     private boolean stick = false;
 
+    public int getStatus() {
+        return status;
+    }
 
-    private LocalDateTime updateTime;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    private int status;
+   private LocalDateTime updateTime;
     //是否删除
     @Column(columnDefinition = "bit default 0")
     private Boolean deleted;
