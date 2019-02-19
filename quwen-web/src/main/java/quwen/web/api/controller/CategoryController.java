@@ -83,7 +83,7 @@ public class CategoryController {
     }
 
     @RequestMapping("del")
-    @ResponseBody
+    @ResponseBody //ajax需要加这个注解来异步获取数据
     public String delByID(@RequestParam HashMap<String,String> map){
         String cateIDs=map.get("id");
         Long id = Long.parseLong(cateIDs);
