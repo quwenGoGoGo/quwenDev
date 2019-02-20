@@ -35,8 +35,8 @@ public class News {
 
     private Integer comment_count;
     //设置是否置顶
-    @Column(columnDefinition = "bit default 1")
-    private boolean stick = false;
+    @Column(columnDefinition = "bit default 0")
+    private boolean stick =false;
 
     public int getStatus() {
         return status;
