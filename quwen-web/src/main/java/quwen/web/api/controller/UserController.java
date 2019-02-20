@@ -12,16 +12,16 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
-    @Autowired
-    private final UserService userService;
-
-    @Autowired
-    public UserController ( UserService userService ){
-        this.userService = userService;
-    }
-    @RequestMapping(value = "/login" ,method = RequestMethod.GET)
-    public String login(@Valid User user, Model model){
-        userService.login(user,model);
-        return "hello";
-    }
+//    @Autowired
+//    private final UserService userService;
+//
+//    @Autowired
+//    public UserController ( UserService userService ){
+//        this.userService = userService;
+//    }
+//    @RequestMapping(value = "/login" ,method = RequestMethod.GET)
+//    public String login(@Valid User user, Model model){
+//        userService.login(user,model);
+//        return "hello";
+//    }
 }

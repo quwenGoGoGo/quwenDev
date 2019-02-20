@@ -7,9 +7,10 @@ import java.util.List;
 @Service
 public interface NewsService {
     public List<News> findAllByStickIsTrue();
-    List<News> getAllNews();
-    void deleteNews(Long newsID);
-    List<News> findSearch(News newsModel);
-    void addNews(News news);
-    News getNewsByID(Long newsID);
+    public List<News> getAllNews();
+    public void deleteNews(Long newsID);
+    public List<News> findSearch(News newsModel);
+    public void addNews(News news);
+    public News findNewsByNewsID(Long id);
+
 }

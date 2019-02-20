@@ -10,5 +10,6 @@ import java.util.List;
 public interface NewsRepository extends JpaRepository<News, Long>,JpaSpecificationExecutor<News> {
     public List<News> findAllByStickIsTrue();
 
-    public List<News> findAllByDeletedIsFalse();
+    public News findNewsByNewsID(Long id);
+
 }

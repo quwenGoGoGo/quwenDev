@@ -70,7 +70,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News getNewsByID(Long newsID){
-        return newsRepository.findById(newsID).get();
+    public News findNewsByNewsID(Long id) {
+
+        return newsRepository.findNewsByNewsID(id);
+
     }
 }

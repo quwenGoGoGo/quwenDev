@@ -36,7 +36,7 @@ public class News {
 
     private Integer comment_count;
     //设置是否置顶
-    @Column(columnDefinition = "bit default 1")
+    @Column(columnDefinition = "bit default 0")
     private boolean stick =false;
 
     private LocalDateTime addTime;
