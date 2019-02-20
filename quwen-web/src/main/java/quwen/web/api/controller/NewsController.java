@@ -67,7 +67,7 @@ public class NewsController {
         news.setCategory(category);
         news.setContent(content);
         news.setAuthor(author);
-//        news.setStatus(status);
+        news.setStatus(status);
         if(!file.isEmpty()){
             try{
                 //获取文件名

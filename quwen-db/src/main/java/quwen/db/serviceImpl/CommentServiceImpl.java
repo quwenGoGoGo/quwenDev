@@ -37,4 +37,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment getCommentByID(Long commentID) {
         return commentRepository.findById(commentID).get();
     }
+
+    @Override
+    public List<Comment> getAllCommentByNewsID(Long newsID){return  commentRepository.findByNews_NewsID(newsID);}
 }

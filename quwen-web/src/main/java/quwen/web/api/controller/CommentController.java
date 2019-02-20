@@ -27,10 +27,18 @@ public class CommentController {
 
     }
 
-    @GetMapping("all")
-    public String getAllCmt(Model model){
-        List<Comment> lists = commentService.getAllComment();
-        model.addAttribute("cmts", lists);
+//    @GetMapping("all")
+//    public String getAllCmt(Model model){
+//        List<Comment> lists = commentService.getAllComment();
+//        model.addAttribute("cmts", lists);
+//        return "comment_list";
+//    }
+
+    @GetMapping("toList/{newsid}")
+    public String getAllComment(Model model, @PathVariable("newsid") Long newsid){
+        System.out.println(newsid);
+        List<Comment> list = commentService.getAllCommentByNewsID(newsid);
+        model.addAttribute("cmts", list);
         return "comment_list";
     }
 
