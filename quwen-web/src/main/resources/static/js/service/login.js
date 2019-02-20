@@ -16,7 +16,7 @@ $(function () {
     );
     $("#logout").click(
         function () {
-            util.request(api.authlogout).then((res)=>{
+            util.request(api.logout).then((res)=>{
                 console.log(res);
                 window.location.reload();
             }).catch((res)=>{
