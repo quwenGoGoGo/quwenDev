@@ -12,16 +12,15 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long newsID;
 
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     //可选属性optional=false,表示分类不能为空。删除新闻，不影响分类
-    @JoinColumn(name="cate_id")
+    @JoinColumn(name = "cate_id")
     //设置在category表中的关联字段(外键)
     private Category category;
     private String author;
     private Date ctime;
     private Integer share_count;
-    private Integer status;
-    @OneToMany(mappedBy = "news",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Collect> collects;
 
     private String title;
@@ -39,12 +38,20 @@ public class News {
     @Column(columnDefinition = "bit default 0")
     private boolean stick =false;
 
-    private LocalDateTime addTime;
+    public int getStatus() {
+        return status;
+    }
 
-    private LocalDateTime updateTime;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    private int status;
+   private LocalDateTime updateTime;
     //是否删除
     @Column(columnDefinition = "bit default 0")
     private Boolean deleted;
+
     public Category getCategory() {
         return category;
     }
@@ -69,13 +76,6 @@ public class News {
         this.share_count = share_count;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public List<Collect> getCollects() {
         return collects;
@@ -89,13 +89,15 @@ public class News {
         return stick;
     }
 
+    public void setStick(boolean stick) {
+        stick = stick;
+    }
 
-
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author){
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -103,84 +105,72 @@ public class News {
         return newsID;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public Integer getView_count() {
-        return view_count;
-    }
-
-    public Integer getCollected_count() {
-        return collected_count;
-    }
-
-    public Integer getComment_count() {
-        return comment_count;
-    }
-
-    public boolean stick() {
-        return stick;
-    }
-
-    public LocalDateTime getAddTime() {
-        return addTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
     public void setNewsID(Long newsID) {
         this.newsID = newsID;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getPicUrl() {
+        return picUrl;
+    }
+
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
 
+    public Integer getView_count() {
+        return view_count;
+    }
+
     public void setView_count(Integer view_count) {
         this.view_count = view_count;
+    }
+
+    public Integer getCollected_count() {
+        return collected_count;
     }
 
     public void setCollected_count(Integer collected_count) {
         this.collected_count = collected_count;
     }
 
+    public Integer getComment_count() {
+        return comment_count;
+    }
+
     public void setComment_count(Integer comment_count) {
         this.comment_count = comment_count;
     }
 
-    public void setStick(boolean stick) {
-        stick = stick;
+    public boolean stick() {
+        return stick;
     }
 
-    public void setAddTime(LocalDateTime addTime) {
-        this.addTime = addTime;
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
     }
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
     }
 
     public void setDeleted(Boolean deleted) {
