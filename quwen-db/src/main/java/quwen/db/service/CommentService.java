@@ -16,4 +16,8 @@ public interface CommentService {
     Comment getCommentByID(Long commentID);
 
     List<Comment> getAllCommentByNewsID(Long newsID);
+
+    List<Comment> getAllCommentByCommentContent(String commentContent);
+
+    List<Comment> findSearch(Comment comment);
 }

@@ -10,9 +10,9 @@ import quwen.wx.api.dao.UserToken;
 
 public class UserTokenManager {
 	private static Map<String, UserToken> tokens = new HashMap<>();
-	private static Map<Integer, UserToken> ids = new HashMap<>();
+	private static Map<Long, UserToken> ids = new HashMap<>();
 	
-	public static Integer getUserId(String token) {
+	public static Long getUserId(String token) {
 		UserToken userToken = tokens.get(token);
 		if(userToken == null) {
 			return null;
@@ -24,7 +24,7 @@ public class UserTokenManager {
 		}
 		return userToken.getUserId();
 	}
-	public static UserToken generateToken(Integer id) {
+	public static UserToken generateToken(Long id) {
 		UserToken userToken =null;
 		String token = CharUtil.getRandomString(32);
         while (tokens.containsKey(token)) {

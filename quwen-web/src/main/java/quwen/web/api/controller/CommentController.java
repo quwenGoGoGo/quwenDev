@@ -7,7 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import quwen.db.domain.Comment;
+import quwen.db.domain.News;
+import quwen.db.domain.User;
 import quwen.db.service.CommentService;
+import quwen.db.service.NewsService;
+import quwen.db.service.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,20 +23,21 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+    private UserService userService;
+    private NewsService newsService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-
     }
 
-//    @GetMapping("all")
-//    public String getAllCmt(Model model){
-//        List<Comment> lists = commentService.getAllComment();
-//        model.addAttribute("cmts", lists);
-//        return "comment_list";
-//    }
+    @GetMapping("all")
+    public String getAllCmt(Model model){
+        List<Comment> lists = commentService.getAllComment();
+        model.addAttribute("cmts", lists);
+        return "comment_list";
+    }
 
     @GetMapping("toList/{newsid}")
     public String getAllComment(Model model, @PathVariable("newsid") Long newsid){
@@ -55,6 +60,7 @@ public class CommentController {
             model.addAttribute("comment", new Comment());
         }
         System.out.println("edit");
+
         return "comment_edit";
     }
 
@@ -82,5 +88,14 @@ public class CommentController {
         System.out.println("id is:" + commentID);
         commentService.deleteComment(id);
         return "redirect:/comments/all";
+    }
+
+    @RequestMapping("search")
+    public String searchForNews(@RequestParam("searchByContent")String content, Model model){
+        Comment comment = new Comment();
+        comment.setCommentContent(content);
+        List<Comment> comments = commentService.findSearch(comment);
+        model.addAttribute("cmts",comments);
+        return "comment_list";
     }
 }

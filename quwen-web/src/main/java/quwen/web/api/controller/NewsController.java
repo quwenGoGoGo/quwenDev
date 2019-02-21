@@ -36,6 +36,8 @@ public class NewsController {
     public String getNewsList(Model model){
         List<News> news = newsService.getAllNews();
         model.addAttribute("news",news);
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categoryList",categories);
         return "news-list";
     }
 

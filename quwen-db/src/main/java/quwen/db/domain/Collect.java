@@ -10,14 +10,15 @@ public class Collect {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long collectID;
 
+    @Temporal(TemporalType.DATE)
     private Date time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
     private News news;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -47,6 +48,10 @@ public class Collect {
 
     public void setTime(Date colTime) {
         this.time = time;
+    }
+
+    public News getNews() {
+        return news;
     }
 }
 

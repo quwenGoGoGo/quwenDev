@@ -34,8 +34,25 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so layui-form-pane" action="/news/search" method="post">
-          <input type="text" id="searchByTitle" name="searchByTitle" class="layui-input" placeholder="新闻标题" autocomplete="off">
-          <input type="text" id="searchByCate" name="searchByCate"  placeholder="新闻分类" autocomplete="off" class="layui-input">
+          <div class="layui-inline">
+            <label for="searchByTitle" class="layui-form-label">新闻标题</label></div>
+          <div class="layui-input-inline">
+          <input type="text" id="searchByTitle" name="searchByTitle" class="layui-input"  autocomplete="off">
+          </div>
+          <div class="layui-inline">
+            <label for="searchByCate" class="layui-form-label">新闻分类
+            </label>
+          </div>
+            <div class="layui-input-inline">
+              <select id="searchByCate" name="searchByCate">
+                <option th:each="category:${categoryList}"
+                        th:text="${category.getCateName()}"
+                        th:selected="${category.getCateName()}"
+                        th:name="${category.getCateName()}">
+                </option>
+              </select>
+            </div>
+
           <!--<label class="layui-form-label">发布时间-->
           <!--<input class="layui-input" name="searchByTime" id="startTime">- -->
             <!--<input class="layui-input" name="searchByTime" id="endTime">-->
@@ -172,7 +189,7 @@
           maxmin: true,
           shadeClose: true,
           shade:0.4,
-          title: '编辑分类',
+          title: '评论列表',
           content: urls
         });
       }
