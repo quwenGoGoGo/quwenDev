@@ -2,23 +2,25 @@ package quwen.db.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userID;
 
     private Integer id;
 
     private String username;
-    
-    private String password;
+
+	@OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comment> comments;
+
+
+	private String password;
 
     private Byte gender;
 

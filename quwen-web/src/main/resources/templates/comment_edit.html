@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.0</title>
+    <title>评论修改</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -30,16 +30,25 @@
                 <span class="x-red">*</span>评论ID
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="commentID" name="commentID" th:field="${comment.commentID}" readonly="readonly" required="" lay-verify="required"
+                <input type="text" id="commentID" name="commentID" th:field="${comment.commentID}" readonly="readonly" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label for="userName" class="layui-form-label">
+        <div class="layui-form-item" th:if="${isAdd}==true">
+            <label for="tuserName" class="layui-form-label">
                 <span class="x-red">*</span>用户
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="userName" name="userName" th:field="${comment.userID}" required="" lay-verify="required"
+                <input type="text" id="tuserName" name="tuserName" th:field="${comment.user.userID}" required="required" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${isAdd}==false">
+            <label for="fuserName" class="layui-form-label">
+                <span class="x-red">*</span>用户
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="fuserName" name="fuserName" th:field="${comment.user.userID}" required="required" lay-verify="required" readonly="readonly"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -48,25 +57,36 @@
                 <span class="x-red">*</span>评论内容
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="cmtcontent" name="cmtcontent" th:field="${comment.commentContent}" required="" lay-verify="sort"
+                <input type="text" id="cmtcontent" name="cmtcontent" th:field="${comment.commentContent}" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
+
         <div class="layui-form-item">
             <label for="cmtdate" class="layui-form-label">
                 <span class="x-red">*</span>评论时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="cmtdate" name="cmtdate" th:field="${comment.commentDate}" required="" lay-verify="sort"
+                <input type="date" id="cmtdate" name="cmtdate" th:field="${comment.commentDate}" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+
+        <div class="layui-form-item" th:if="${isAdd}==false">
             <label for="newsID" class="layui-form-label">
                 <span class="x-red">*</span>新闻
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="newsID" name="newsID" th:field="${comment.news.newsID}" required="" lay-verify="sort"
+                <input type="text" id="newsID" name="newsID" th:field="${comment.news.newsID}" required="required" lay-verify="required" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${isAdd}==true">
+            <label for="tnewsID" class="layui-form-label">
+                <span class="x-red">*</span>新闻
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="tnewsID" name="tnewsID" th:field="${comment.news.newsID}" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>

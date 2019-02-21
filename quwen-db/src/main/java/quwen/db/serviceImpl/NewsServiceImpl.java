@@ -40,7 +40,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findSearch(News newsModel){
-        Assert.notNull(newsModel);
 
         List<News> result = newsRepository.findAll(new Specification<News>() {
             @Override
@@ -72,5 +71,20 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News getNewsByID(Long newsID){
         return newsRepository.findById(newsID).get();
+    }
+
+    @Override
+    public List<News> findAllByStickIsFalse(){
+        return newsRepository.findAllByStickIsFalse();
+    }
+
+    @Override
+    public News findNewsByNewsID(Long newsID){
+        return newsRepository.findNewsByNewsID(newsID);
+    }
+
+    @Override
+    public List<News> findNewsByCategory(Category category){
+        return newsRepository.findNewsByCategory(category);
     }
 }

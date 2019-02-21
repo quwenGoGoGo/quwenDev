@@ -5,11 +5,12 @@ import quwen.db.domain.User;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Service
 public interface UserService {
-	
+
 	public User queryByOid(String openId);
 	
 	public void saveAndFlush(User user);
@@ -17,5 +18,7 @@ public interface UserService {
 	public void addUser(@Valid User user);
 
 	public void login(User user, Model model);
+
+	public List<User> getAllUser();
 	
 }

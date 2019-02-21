@@ -23,6 +23,9 @@ public class News {
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Collect> collects;
 
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
     private String title;
 
     private String picUrl;
@@ -35,8 +38,8 @@ public class News {
 
     private Integer comment_count;
     //设置是否置顶
-    @Column(columnDefinition = "bit default 1")
-    private boolean stick = false;
+    @Column(columnDefinition = "bit default 0")
+    private boolean stick =false;
 
     public int getStatus() {
         return status;
