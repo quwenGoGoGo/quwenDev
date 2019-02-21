@@ -23,6 +23,9 @@ public class News {
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Collect> collects;
 
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
     private String title;
 
     private String picUrl;
