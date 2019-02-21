@@ -40,7 +40,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> findSearch(News newsModel){
-        Assert.notNull(newsModel);
 
         List<News> result = newsRepository.findAll(new Specification<News>() {
             @Override

@@ -11,7 +11,6 @@ public class CategoryMapper {
         CategoryVo categoryVo = new CategoryVo();
         categoryVo.setCateID(categoryPo.getCateID());
         categoryVo.setCateName(categoryPo.getCateName());
-        categoryVo.setSort(categoryPo.getSort());
         return categoryVo;
     }
 

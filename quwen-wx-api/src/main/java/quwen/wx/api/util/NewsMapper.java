@@ -20,8 +20,6 @@ public class NewsMapper {
         newsVo.setStick(newsPo.isStick());
         newsVo.setCollected_count(newsPo.getCollected_count());
         newsVo.setComment_count(newsPo.getComment_count());
-        newsVo.setShare_count(newsPo.getShare_count());
-        newsVo.setView_count(newsPo.getView_count());
         return newsVo;
     }
 

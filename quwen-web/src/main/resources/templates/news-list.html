@@ -34,8 +34,25 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so layui-form-pane" action="/news/search" method="post">
-          <input type="text" id="searchByTitle" name="searchByTitle" class="layui-input" placeholder="新闻标题" autocomplete="off">
-          <input type="text" id="searchByCate" name="searchByCate"  placeholder="新闻分类" autocomplete="off" class="layui-input">
+          <div class="layui-inline">
+            <label for="searchByTitle" class="layui-form-label">新闻标题</label></div>
+          <div class="layui-input-inline">
+          <input type="text" id="searchByTitle" name="searchByTitle" class="layui-input"  autocomplete="off">
+          </div>
+          <div class="layui-inline">
+            <label for="searchByCate" class="layui-form-label">新闻分类
+            </label>
+          </div>
+            <div class="layui-input-inline">
+              <select id="searchByCate" name="searchByCate">
+                <option th:each="category:${categoryList}"
+                        th:text="${category.getCateName()}"
+                        th:selected="${category.getCateName()}"
+                        th:name="${category.getCateName()}">
+                </option>
+              </select>
+            </div>
+
           <!--<label class="layui-form-label">发布时间-->
           <!--<input class="layui-input" name="searchByTime" id="startTime">- -->
             <!--<input class="layui-input" name="searchByTime" id="endTime">-->
@@ -83,7 +100,7 @@
             <td th:text="${News.getStatus()}==1?'已推荐':'推荐'" class="td-status">
               <span class="layui-btn layui-btn-normal layui-btn-mini"><a onclick="member_stop(this,'10001')" href="javascript:;">已推荐</a></span></td>
             <td class="td-manage">
-              <a title="评论列表"  onclick="x_admin_show('编辑','news-edit.html',600,400)" href="javascript:;">
+              <a title="评论列表"  th:onclick="'javascript:get('+this+','+${News.newsID}+');'">
                 <i class="layui-icon">&#xe611;</i>
               </a>
               <a title="收藏列表" onclick="x_admin_show('修改密码','member-password.html',600,400)" href="javascript:;">
@@ -162,6 +179,20 @@
           });
       }
 
+      function get(obj,id){
+        urls='/comments/toList/'+id;
+        alert(urls);
+        layer.open({
+          type: 2,
+          area: ['600px', '400px'],
+          fix: false, //不固定
+          maxmin: true,
+          shadeClose: true,
+          shade:0.4,
+          title: '评论列表',
+          content: urls
+        });
+      }
 
        /*用户-停用*/
       function member_stop(obj,id){

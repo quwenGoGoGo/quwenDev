@@ -7,12 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import quwen.db.domain.Category;
+import quwen.db.domain.Collect;
 import quwen.db.domain.News;
 import quwen.db.service.CategoryService;
 import quwen.db.service.NewsService;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class NewsController {
     public String getNewsList(Model model){
         List<News> news = newsService.getAllNews();
         model.addAttribute("news",news);
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categoryList",categories);
         return "news-list";
     }
 
@@ -54,20 +58,28 @@ public class NewsController {
 
     @RequestMapping("add")
     @ResponseBody
-    public String addNews(@RequestParam(value = "title") String title,
+    public String addNews(@RequestParam(value = "newsID") Long newsID,
+            @RequestParam(value = "title") String title,
             @RequestParam(value = "cateName")String cateName,
             @RequestParam(value = "cover")MultipartFile file,
             @RequestParam(value = "content")String content,
             @RequestParam(value = "author")String author,
             @RequestParam(value = "switch") Integer status,
+            @RequestParam(value = "stick") Integer stick,
             Model model) throws Exception{
         News news = new News();
+        news.setNewsID(newsID);
         news.setTitle(title);
         Category category = categoryService.findByCateName(cateName);
         news.setCategory(category);
         news.setContent(content);
         news.setAuthor(author);
+        news.setCtime(new Date());
         news.setStatus(status);
+        boolean isStick=(stick==1)?true:false;
+        news.setStick(isStick);
+
+
         if(!file.isEmpty()){
             try{
                 //获取文件名
@@ -75,8 +87,8 @@ public class NewsController {
                 //获取文件名的后缀
                 String suffixName = fileName.substring(fileName.lastIndexOf("."));
                 String filePath ="D:\\java\\IdeaProjects\\quwen\\src\\main\\resources\\static\\images\\";
-                String dateName = new SimpleDateFormat("yyyyMMdd").format(new Date());
-                String newName = dateName  + suffixName;
+                String dateNow = new SimpleDateFormat("yyyyMMdd").format(new Date());
+                String newName = dateNow  + suffixName;
                 String pathName = filePath + newName;
                 BufferedOutputStream out = new BufferedOutputStream(
                         new FileOutputStream(new File(pathName)));
