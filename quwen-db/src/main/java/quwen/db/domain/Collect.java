@@ -12,15 +12,15 @@ public class Collect {
 
     private Date time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
     private News news;
 
-    public Collect(Date time) {
-        this.time = time;
-    }
+//    public Collect(Date time) {
+//        this.time = time;
+//    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -35,6 +35,8 @@ public class Collect {
     public void setNews(News news) {
         this.news = news;
     }
+
+    public News getNews(){ return news;}
 
     public Long getCollectID() {
         return collectID;
