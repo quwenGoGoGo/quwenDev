@@ -11,12 +11,12 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userID;
 
-    private Integer id;
+//    private Integer id;
 
-    private String username;
+    private String username;//unique
     
     private String password;
 
@@ -36,13 +36,13 @@ public class User {
 
     private String weixinOpenid;
 
-    private Byte status;
+    private Byte status;//
 
-    private LocalDateTime addTime;
+    private LocalDateTime addTime;//
 
-    private LocalDateTime updateTime;
+    private LocalDateTime updateTime;//
 
-    private Boolean deleted;
+    private Boolean deleted;//
 
 	public long getUserID() {
 		return userID;
@@ -52,13 +52,6 @@ public class User {
 		this.userID = userID;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;

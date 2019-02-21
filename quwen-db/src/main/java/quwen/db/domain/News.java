@@ -11,7 +11,8 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long newsID;
-
+//keywords
+    //description
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
     //可选属性optional=false,表示分类不能为空。删除新闻，不影响分类
     @JoinColumn(name = "cate_id")
@@ -19,21 +20,21 @@ public class News {
     private Category category;
     private String author;
     private Date ctime;
-    private Integer share_count;
-    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Integer share_count;//
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Collect> collects;
 
-    private String title;
+    private String title;//unique
 
     private String picUrl;
 
     private String content;
 
-    private Integer view_count;
+    private Integer view_count;//
 
-    private Integer collected_count;
+    private Integer collected_count;//
 
-    private Integer comment_count;
+    private Integer comment_count;//
     //设置是否置顶
     @Column(columnDefinition = "bit default 0")
     private boolean stick =false;
@@ -47,10 +48,10 @@ public class News {
     }
 
     private int status;
-   private LocalDateTime updateTime;
+    private LocalDateTime updateTime;//
     //是否删除
     @Column(columnDefinition = "bit default 0")
-    private Boolean deleted;
+    private Boolean deleted;//
 
     public Category getCategory() {
         return category;

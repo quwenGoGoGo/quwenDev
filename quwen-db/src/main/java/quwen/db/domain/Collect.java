@@ -16,9 +16,6 @@ public class Collect {
     @JoinColumn(name = "news_id")
     private News news;
 
-    public Collect(Date time) {
-        this.time = time;
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -7,9 +7,9 @@ import java.util.List;
 @Entity
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cateID;
-    private String cateName;
+    private String cateName;//unique
     private Integer sort;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

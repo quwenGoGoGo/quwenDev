@@ -2,15 +2,16 @@ package quwen.db.domain;
 
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer commentID;
+    private Long commentID;
     private String userID;
     private String commentContent;
-    private String commentDate;
+    private Date commentDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
@@ -24,11 +25,11 @@ public class Comment {
         this.news = news;
     }
 
-    public Integer getCommentID() {
+    public Long getCommentID() {
         return commentID;
     }
 
-    public void setCommentID(Integer commentID) {
+    public void setCommentID(Long commentID) {
         this.commentID = commentID;
     }
 
@@ -48,11 +49,11 @@ public class Comment {
         this.commentContent = commentContent;
     }
 
-    public String getCommentDate() {
+    public Date getCommentDate() {
         return commentDate;
     }
 
-    public void setCommentDate(String commentDate) {
+    public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
     }
 }
