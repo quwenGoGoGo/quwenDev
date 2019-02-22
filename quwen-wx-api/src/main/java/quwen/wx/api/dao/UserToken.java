@@ -3,15 +3,15 @@ package quwen.wx.api.dao;
 import java.time.LocalDateTime;
 
 public class UserToken {
-	private Integer userId;
+	private Long userId;
 	private String token;
 	private String sessionKey;
 	private LocalDateTime expireTime;
 	private LocalDateTime updateTime;
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getToken() {

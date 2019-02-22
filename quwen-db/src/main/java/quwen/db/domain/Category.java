@@ -9,10 +9,16 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cateID;
+
+    //标题唯一且不为空
+    @Column(unique = true, nullable = false)
     private String cateName;
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+
     //cascade级联保存、更新、删除、刷新;延迟加载。当删除分类时，会级联删除该分类的所有新闻
     //拥有mappedBy注解的实体类为关系被维护端
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
     private List<News> news;
 
     public Long getCateID() {
@@ -30,6 +36,7 @@ public class Category {
     public void setCateName(String cateName) {
         this.cateName = cateName;
     }
+
 
     public List<News> getNews() {
         return news;
