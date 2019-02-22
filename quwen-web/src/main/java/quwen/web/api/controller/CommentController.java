@@ -8,7 +8,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import quwen.db.domain.Comment;
 import quwen.db.domain.News;
-import quwen.db.domain.User;
 import quwen.db.service.CommentService;
 import quwen.db.service.NewsService;
 import quwen.db.service.UserService;
@@ -25,7 +24,11 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private NewsService newsService;
 
     @InitBinder
@@ -44,21 +47,15 @@ public class CommentController {
     @GetMapping("toList/{newsid}")
     public String getAllComment(Model model, @PathVariable("newsid") Long newsid){
         System.out.println(newsid);
+        model.addAttribute("newsID", newsid);
         List<Comment> list = commentService.getAllCommentByNewsID(newsid);
         model.addAttribute("cmts", list);
         return "comment_list";
     }
 
-    @GetMapping("toListUser/{userid}")
-    public String getAllComments(Model model, @PathVariable("userid") Long userid){
-        System.out.println(userid);
-        List<Comment> list = commentService.getAllCommentByUserID(userid);
-        model.addAttribute("cmts", list);
-        return "comment_list";
-    }
 
-    @RequestMapping("edit/{id}")
-    public String edit(Model model,@PathVariable("id") Long id){
+    @RequestMapping("edit/{id}/{newsID}")
+    public String edit(Model model,@PathVariable("id") Long id, @PathVariable("newsID") Long newsID){
         System.out.println(id);
 
         if(id > 0){
@@ -68,6 +65,7 @@ public class CommentController {
         else{
             model.addAttribute("isAdd", true);
             model.addAttribute("comment", new Comment());
+            model.addAttribute("newsID", newsID);
         }
         System.out.println("edit");
 
@@ -76,11 +74,14 @@ public class CommentController {
 
     @PostMapping("save")
     @ResponseBody
-    public String save(@ModelAttribute Comment comment){
+    public String save(@ModelAttribute Comment comment,
+                       @RequestParam(value = "newsID") Long newsID){
         if(comment == null)
             return "fail";
 
         System.out.println(comment.getCommentID());
+        News news = newsService.getNewsByID(newsID);
+        comment.setNews(news);
 
         if(comment.getCommentID() != null && comment.getCommentID() > 0)
             commentService.updateComment(comment);
