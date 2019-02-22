@@ -78,10 +78,6 @@ public class NewsServiceImpl implements NewsService {
         return newsRepository.findAllByStickIsFalse();
     }
 
-    @Override
-    public News findNewsByNewsID(Long newsID){
-        return newsRepository.findNewsByNewsID(newsID);
-    }
 
     @Override
     public List<News> findNewsByCategory(Category category){
