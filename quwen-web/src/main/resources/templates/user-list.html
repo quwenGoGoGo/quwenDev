@@ -75,7 +75,7 @@
         <thead>
         <tr>
             <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+                <input type="checkbox" id="quanxuan" onclick="selectAll(this.checked)">全选
             </th>
             <th>编号</th>
             <th>用户名</th>
@@ -87,7 +87,7 @@
         <tbody>
         <tr th:each="User,iterStat:${users}">
             <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+                <input type="checkbox" id="subcheck" name="subcheck" th:value="${User.userID}" lay-skin="primary">
             </td>
             <td th:text="${iterStat.count}">1</td>
             <td th:text="${User.getNickname()}">老王</td>
@@ -140,7 +140,7 @@
     function del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            alert(id);
+            // alert(id);
             var map={id:id};
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
@@ -152,10 +152,25 @@
         });
     }
 
+    function get(obj,id){
+        urls='/comments/toList/'+id;
+        // alert(urls);
+        layer.open({
+            type: 2,
+            area: ['600px', '400px'],
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade:0.4,
+            title: '评论列表',
+            content: urls
+        });
+    }
+
     // 编辑
     function edit(obj,id){
         urls='/user/edit/'+id;
-        alert(urls);
+        // alert(urls);
         layer.open({
             type: 2,
             area: ['600px', '400px'],
@@ -200,17 +215,32 @@
         });
     }
 
-
-
-    function delAll (argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+    function delAll(){
+        //判断至少写了一项
+        var checkedNum = $("input[name='subcheck']:checked").length;
+        if(checkedNum==0){
+            alert("请至少选择一项!");
+            return false;
+        }
+        if(confirm("确定删除所选项目?")){
+            var checkedList = new Array();
+            $("input[name='subcheck']:checked").each(function(){
+                checkedList.push($(this).val());
+            });
+            $.ajax({
+                type:'post',
+                url:'/user/delAll',
+                data:{"delitems":checkedList.toString()},
+                datatype:"html",
+                success:function(data){
+                    $("[name='checkbox2']:checkbox").attr("checked",false);
+                    location.reload();//页面刷新
+                },
+                error:function(data){
+                    art.dialog.tips('删除失败!');
+                }
+            });
+        }
     }
 </script>
 <script>var _hmt = _hmt || []; (function() {
