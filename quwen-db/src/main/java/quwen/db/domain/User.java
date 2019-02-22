@@ -31,6 +31,9 @@ public class User {
 	//最后一次登录ip
 	private String lastLoginIp;
 
+	private Integer comment_count;
+
+	private Integer collect_count;
 
 	//关联表comments
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -112,5 +115,21 @@ public class User {
 
 	public void setCollects(List<Collect> collects) {
 		this.collects = collects;
+	}
+
+	public Integer getComment_count() {
+		return comment_count;
+	}
+
+	public void setComment_count(Integer comment_count) {
+		this.comment_count = comment_count;
+	}
+
+	public Integer getCollect_count() {
+		return collect_count;
+	}
+
+	public void setCollect_count(Integer collect_count) {
+		this.collect_count = collect_count;
 	}
 }
