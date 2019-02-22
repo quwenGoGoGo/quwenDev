@@ -49,6 +49,14 @@ public class CommentController {
         return "comment_list";
     }
 
+    @GetMapping("toList/{userid}")
+    public String getAllComments(Model model, @PathVariable("userid") Long userid){
+        System.out.println(userid);
+        List<Comment> list = commentService.getAllCommentByUserID(userid);
+        model.addAttribute("cmts", list);
+        return "comment_list";
+    }
+
     @RequestMapping("edit/{id}")
     public String edit(Model model,@PathVariable("id") Long id){
         System.out.println(id);
