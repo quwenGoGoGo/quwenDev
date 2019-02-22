@@ -13,6 +13,8 @@ import quwen.db.service.CommentService;
 import quwen.db.service.NewsService;
 import quwen.db.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,6 +90,20 @@ public class CommentController {
         System.out.println("id is:" + commentID);
         commentService.deleteComment(id);
         return "redirect:/comments/all";
+    }
+
+    @RequestMapping("delAll")
+    public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+        String items = request.getParameter("delitems");// System.out.println(items);
+        String[] strs = items.split(",");
+
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                Long a = Long.parseLong(strs[i]);
+                commentService.deleteComment(a);
+            } catch (Exception e) {
+            }
+        }
     }
 
     @RequestMapping("search")
