@@ -33,7 +33,6 @@ public class UserController {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users",users);
         return "user-list";
-
     }
 
     @RequestMapping("edit/{id}")
@@ -56,7 +55,9 @@ public class UserController {
             return null;
         }
         User user = new User();
-        user.setUserName((String)map.get("userName"));
+        user.setNickname((String)map.get("nickname"));
+        user.setCollect_count(Integer.parseInt(map.get("collect_count").toString()));
+        user.setComment_count(Integer.parseInt(map.get("comment_count").toString()));
         if(map.get("userID")!=null && (Long.parseLong(map.get("userID").toString()))>0){
             String userID = map.get("userID").toString();
             System.out.println("edit"+map.get("userID").toString());
@@ -66,6 +67,23 @@ public class UserController {
         }else {
             userService.addUser(user);
         }
+        return "success";
+    }
+
+    @RequestMapping("list")
+    public List<User> getAllUser(Model model){
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("userList",users);
+        return null;
+    }
+
+    @RequestMapping("del")
+    @ResponseBody
+    public String delByID(@RequestParam HashMap<String,String> map){
+        String userIDs=map.get("id");
+        Long id = Long.parseLong(userIDs);
+//        System.out.println("cateIDdel:"+id);
+        userService.deleteUser(id);
         return "success";
     }
 

@@ -29,9 +29,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void addUser(@Valid User user) {
-
+	public User addUser(User user) {
+		return userRepository.save(user);
 	}
+
 
 	@Override
 	public void login(User user, Model model) {
@@ -56,5 +57,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User updateUser(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public void deleteUser(Long userID) {
+		 userRepository.deleteById(userID);
 	}
 }

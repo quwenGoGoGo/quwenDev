@@ -23,7 +23,7 @@
   <body>
     <div class="x-body">
         <form class="layui-form" action="" method="post">
-        <div class="layui-form-item" th:if="${isAdd}==false">
+            <div class="layui-form-item" th:if="${isAdd}==false">
                 <label for="userID" class="layui-form-label">
                     <span class="x-red">*</span>用户ID
                 </label>
@@ -33,11 +33,11 @@
                 </div>
             </div>
           <div class="layui-form-item">
-              <label for="userName" class="layui-form-label">
+              <label for="nickname" class="layui-form-label">
                   <span class="x-red">*</span>用户名
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="userName" name="userName" th:field="${user.userName}" required="" lay-verify="required"
+                  <input type="text" id="nickname" name="nickname" th:field="${user.nickname}" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -51,11 +51,11 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="collected_count" class="layui-form-label">
+              <label for="collect_count" class="layui-form-label">
                   <span class="x-red">*</span>点赞数
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="collected_count" name="collected_count" th:field="${user.collected_count}" required="" lay-verify="required"
+                  <input type="text" id="collect_count" name="collect_count" th:field="${user.collect_count}" required="" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -87,20 +87,16 @@
                 }
             }
           });
-
             //监听提交
             form.on('submit(add)', function(data){
-                var formData = new FormData($("#userForm")[0]);
-                console.log(formData);
+                // var index = parent.layer.getFrameIndex(window.name);
+                // parent.layer.close(index);//关闭当前页
                 $.ajax({
                     url:'/user/save',
                     cache: false,
-                    //async:false,
+                    // async:false,
                     method:'post',
-                    //dataType:'json',
-                    data:formData,
-                    processData:false,
-                    contentType:false,
+                    data:data.field,
                     beforeSend:function(){
                         l_index=layer.load(1,{
                             shade:[0.5,'#DBDBDB']
@@ -124,7 +120,6 @@
                 })
                 return false;//这样才能实现刷新，不知道为什么。
             });
-          
           
         });
     </script>

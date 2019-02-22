@@ -15,7 +15,9 @@ public interface UserService {
 
 	public void saveAndFlush(User user);
 
-	public void addUser(@Valid User user);
+//	public void addUser(@Valid User user);
+
+	User addUser(User user);
 
 	public void login(User user, Model model);
 
@@ -26,5 +28,8 @@ public interface UserService {
 	public User getUserByID(Long userID);
 
 	User updateUser(User user);
+
+	void deleteUser(Long userID);
+
 
 }
