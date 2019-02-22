@@ -15,6 +15,8 @@ public class Comment {
     private User user;
 
     private String commentContent;
+
+    @Temporal(TemporalType.DATE)
     private Date commentDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

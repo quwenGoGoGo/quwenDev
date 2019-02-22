@@ -58,13 +58,10 @@ public class WxAuthController {
 		User user = userService.queryByOid(openId);
 		if(user == null) {
 			user = new User();
-			user.setUsername(openId);
-			user.setPassword(openId);
 			user.setWeixinOpenid(openId);
 			user.setNickname(userInfo.getNickName());
 			user.setAvatar(userInfo.getAvatarUrl());
 			user.setGender(userInfo.getGender());
-			user.setStatus((byte)0);
 			user.setLastLoginTime(LocalDateTime.now());
 			user.setLastLoginIp(IpUtil.client(request));
 			
@@ -75,7 +72,7 @@ public class WxAuthController {
 			user.setLastLoginIp(IpUtil.client(request));
 			userService.saveAndFlush(user);
 		}
-		UserToken userToken = UserTokenManager.generateToken(user.getId());
+		UserToken userToken = UserTokenManager.generateToken(user.getUserID());
 		Map<String, Object> result = new HashMap<>();
 		result.put("token", userToken.getToken());
 		result.put("tokenExpire", userToken.getExpireTime().toString());

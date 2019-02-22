@@ -95,6 +95,13 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label for="status" class="layui-form-label">是否置顶</label>
+                <div class="layui-input-block">
+                    <input id="stick" name="stick" checked="" value=1 type="checkbox" lay-skin="primary" lay-filter="stickTest"
+                           lay-text="置顶|不置顶">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <div class="layui-input-block">
                     <input type="submit" class="layui-btn" value="submit" lay-submit lay-filter="add" ></input>
                     <input type="reset" class="layui-btn layui-btn-primary"></input>
@@ -116,9 +123,19 @@
                 $(data.elem).attr('type', 'hidden').val(this.checked ? 1 : 0);
             });
 
+            //监听置顶
+            form.on('checkbox(stickTest)', function (data) {
+                console.log(data.value);
+                $(data.elem).attr('type', 'hidden').val(this.checked ? 1 : 0);
+
+            })
+
             //监听提交
             form.on('submit(add)', function(data){
                 var formData = new FormData($("#newsForm")[0]);
+                if(!formData.has("newsID")){
+                    formData.append("newsID", 0);
+                }
                 console.log(formData);
                 $.ajax({
                     url:'/news/add',
