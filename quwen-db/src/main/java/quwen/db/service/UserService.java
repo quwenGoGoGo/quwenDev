@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserService {
 
 	public User queryByOid(String openId);
+
+	public User getUserByid(Long userID);
 	
 	public void saveAndFlush(User user);
 

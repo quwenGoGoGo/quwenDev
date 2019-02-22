@@ -35,20 +35,20 @@
             </div>
         </div>
         <div class="layui-form-item" th:if="${isAdd}==true">
-            <label for="tuserName" class="layui-form-label">
+            <label for="tuserID" class="layui-form-label">
                 <span class="x-red">*</span>用户
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="tuserName" name="tuserName" th:field="${comment.user.userID}" required="required" lay-verify="required"
+                <input type="text" id="tuserID" name="userID" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" th:if="${isAdd}==false">
-            <label for="fuserName" class="layui-form-label">
+            <label for="fuserID" class="layui-form-label">
                 <span class="x-red">*</span>用户
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="fuserName" name="fuserName" th:field="${comment.user.userID}" required="required" lay-verify="required" readonly="readonly"
+                <input type="text" id="fuserID" name="userID" th:value="${comment.user.userID}" required="required" lay-verify="required" readonly="readonly"
                        autocomplete="off" class="layui-input">
             </div>
         </div>

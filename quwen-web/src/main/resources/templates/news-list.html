@@ -23,12 +23,6 @@
   
   <body class="layui-anim layui-anim-up">
     <div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
@@ -83,7 +77,7 @@
             <!--<th>阅读量</th>-->
             <th>收藏量</th>
             <th>评论量</th>
-            <th>状态</th>
+            <th>是否推荐</th>
             <th>操作</th></tr>
         </thead>
         <tbody>
@@ -98,8 +92,7 @@
             <!--<td th:text="${News.getView_count()}">40000</td>-->
             <td th:text="${News.getCollected_count()}">1028</td>
             <td th:text="${News.getComment_count()}">1122</td>
-            <td th:text="${News.getStatus()}==1?'已推荐':'推荐'" class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini"><a onclick="member_stop(this,'10001')" href="javascript:;">已推荐</a></span></td>
+            <td th:text="${News.getStatus()}==1?'是':'否'" class="td-status"></td>
             <td class="td-manage">
               <a title="评论列表"  th:onclick="'javascript:get('+this+','+${News.newsID}+');'">
                 <i class="layui-icon">&#xe611;</i>

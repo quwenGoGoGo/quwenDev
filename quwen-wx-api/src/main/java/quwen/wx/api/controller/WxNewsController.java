@@ -27,7 +27,7 @@ public class WxNewsController {
     public Object detail(@NotNull Long id){
         Map<String, Object> data = new HashMap<>();
         NewsMapper newsMapper = new NewsMapper();
-        NewsVo info = newsMapper.NewsPoToVo(newsService.findNewsByNewsID(id));
+        NewsVo info = newsMapper.NewsPoToVo(newsService.getNewsByID(id));
 
         data.put("info", info);
         return ResponseUtil.ok(data);

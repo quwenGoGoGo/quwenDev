@@ -8,6 +8,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import quwen.db.domain.Comment;
 import quwen.db.domain.News;
+import quwen.db.domain.User;
 import quwen.db.service.CommentService;
 import quwen.db.service.NewsService;
 import quwen.db.service.UserService;
@@ -75,13 +76,17 @@ public class CommentController {
     @PostMapping("save")
     @ResponseBody
     public String save(@ModelAttribute Comment comment,
-                       @RequestParam(value = "newsID") Long newsID){
+                       @RequestParam(value = "newsID") Long newsID,
+                       @RequestParam(value = "userID") Long userID){
         if(comment == null)
             return "fail";
 
         System.out.println(comment.getCommentID());
         News news = newsService.getNewsByID(newsID);
         comment.setNews(news);
+
+        User user = userService.getUserByid(userID);
+        comment.setUser(user);
 
         if(comment.getCommentID() != null && comment.getCommentID() > 0)
             commentService.updateComment(comment);
