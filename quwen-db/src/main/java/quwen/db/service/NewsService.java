@@ -15,5 +15,6 @@ public interface NewsService {
     void deleteNews(Long newsID);
     List<News> findSearch(News newsModel);
     void addNews(News news);
+    void updateNews(News news);
     News getNewsByID(Long newsID);
 }

@@ -87,4 +87,9 @@ public class NewsServiceImpl implements NewsService {
     public List<News> findNewsByCategory(Category category){
         return newsRepository.findNewsByCategory(category);
     }
+
+    @Override
+    public void updateNews(News news){
+        newsRepository.save(news);
+    }
 }
