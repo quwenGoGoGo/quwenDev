@@ -137,6 +137,9 @@
                     formData.append("newsID", 0);
                 }
                 console.log(formData);
+                if(!formData.has("newsID")){
+                    formData.append("newsID", 0);
+                }
                 $.ajax({
                     url:'/news/add',
                     cache: false,

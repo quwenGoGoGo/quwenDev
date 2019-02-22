@@ -50,6 +50,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllCommentByNewsID(Long newsID){return  commentRepository.findByNews_NewsID(newsID);}
 
     @Override
+    public List<Comment> getAllCommentByUserID(Long userID){return commentRepository.findByUser_UserID(userID);}
+
+    @Override
     public List<Comment> getAllCommentByCommentContent(String commentContent){return commentRepository.findByCommentContent(commentContent);}
 
     @Override

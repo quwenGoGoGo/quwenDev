@@ -16,4 +16,5 @@ public interface NewsRepository extends JpaRepository<News, Long>,JpaSpecificati
     public News findNewsByNewsID(Long newsID);
 
     public List<News> findNewsByCategory(Category category);
+
 }

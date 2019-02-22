@@ -36,31 +36,42 @@
     <form class="layui-form layui-col-md12 x-so layui-form-pane">
       <!-- <input class="layui-input" placeholder="分类名" name="cate_name">
       <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加</button> -->
-      <input type="text" name="username"  placeholder="请输入分类名" autocomplete="off" class="layui-input">
+      <!--<input type="text" name="username"  placeholder="请输入分类名" autocomplete="off" class="layui-input">-->
+      <div class="layui-input-inline">
+          <select id="cateName" name="cateName">
+              <option th:each="category:${categories}"
+                      th:text="${category.getCateName()}"
+                      th:selected="${category.getCateName()}"
+                      th:name="${category.getCateName()}">
+              </option>
+          </select>
+      </div>
       <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
     </form>
   </div>
   <xblock>
     <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-    <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+    <!--<span class="x-right" style="line-height:40px">共有数据：88 条</span>-->
     <button class="layui-btn" th:onclick="x_admin_show('添加分类','/cate/edit/0',600,400)"><i class="layui-icon"></i>添加</button>
   </xblock>
   <table class="layui-table">
     <thead>
     <tr>
       <th>
-        <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+          <input type="checkbox" id="quanxuan" onclick="selectAll(this.checked)">全选
       </th>
+      <th>编号</th>
       <th>分类名称</th>
       <!--<th>排序号</th>-->
       <th>操作</th>
+    </tr>
     </thead>
     <tbody>
     <tr th:each="Cate,iterStat:${categories}">
       <td>
-        <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+        <input type="checkbox" id="subcheck" name="subcheck" th:value="${Cate.cateID}" lay-skin="primary">
       </td>
-      <!--<td th:text="${iterStat.count}">1</td>-->
+      <td th:text="${iterStat.count}">1</td>
       <td th:text="${Cate.getCateName()}">本地民生</td>
       <!--<td th:text="${Cate.getSort()}">1</td>-->
       <td class="td-manage">
@@ -109,7 +120,7 @@
 
     function edit(obj,id){
         urls='/cate/edit/'+id;
-        alert(urls);
+        // alert(urls);
         layer.open({
             type: 2,
             area: ['600px', '400px'],
@@ -125,7 +136,7 @@
     function del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            alert(id);
+            // alert(id);
             var map={id:id};
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
@@ -170,16 +181,32 @@
     }
 
 
-
     function delAll (argument) {
+        var checkedNum = $("input[name='subcheck']:checked").length;
+        if(checkedNum==0){
+            alert("请至少选择一项");
+            return false;
+        }
+        if(confirm("确定删除所选项目？")){
+            var checkedList = new Array();
+            $("input[name='subcheck']:checked").each(function () {
+                checkedList.push($(this).val());
+            });
+            $.ajax({
+                type:'post',
+                url: '/cate/delAll',
+                data: {"delitems": checkedList.toString()},
+                datatype: "html",
+                success: function (data) {
+                    $("[name='checkbox2']:checkbox").attr("checked",false);
+                    location.reload();
+                },
+                error:function (data) {
+                    art.dialog.tips('删除失败!');
 
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+                }
+            });
+        }
     }
 </script>
 <script>var _hmt = _hmt || []; (function() {
