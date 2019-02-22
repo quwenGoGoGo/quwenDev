@@ -133,6 +133,9 @@
             //监听提交
             form.on('submit(add)', function(data){
                 var formData = new FormData($("#newsForm")[0]);
+                if(!formData.has("newsID")){
+                    formData.append("newsID", 0);
+                }
                 console.log(formData);
                 $.ajax({
                     url:'/news/add',

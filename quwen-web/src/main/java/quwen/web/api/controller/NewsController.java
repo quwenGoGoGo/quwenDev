@@ -68,7 +68,9 @@ public class NewsController {
             @RequestParam(value = "stick") Integer stick,
             Model model) throws Exception{
         News news = new News();
-        news.setNewsID(newsID);
+        if(newsID>0){
+            news.setNewsID(newsID);
+        }
         news.setTitle(title);
         Category category = categoryService.findByCateName(cateName);
         news.setCategory(category);
