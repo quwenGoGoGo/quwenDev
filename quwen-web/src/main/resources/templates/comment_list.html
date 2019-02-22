@@ -57,8 +57,9 @@
       <th>
         <input type="checkbox" id="quanxuan" onclick="selectAll(this.checked)">全选
       </th>
-      <th>评论</th>
-      <th>用户</th>
+      <th>评论编号</th>
+      <th>用户编号</th>
+      <th>用户名</th>
       <th>评论内容</th>
       <th>评论时间</th>
       <!--<th>新闻</th>-->
@@ -70,7 +71,8 @@
       <td>
         <input type="checkbox" id="subcheck" name="subcheck" th:value="${comment.commentID}" lay-skin="primary">
 </td>
-      <td th:text="${comment.commentID}">小红</td>
+      <td th:text="${comment.commentID}">1</td>
+      <td th:text="${comment.user.userID}">1</td>
       <td th:text="${comment.user.nickname}">小红</td>
       <td th:text="${comment.commentContent}">13000000000</td>
       <td th:text="${comment.commentDate}">2017-01-01 </td>
