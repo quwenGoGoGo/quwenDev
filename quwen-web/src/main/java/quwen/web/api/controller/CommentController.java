@@ -49,7 +49,7 @@ public class CommentController {
         return "comment_list";
     }
 
-    @GetMapping("toList/{userid}")
+    @GetMapping("toListUser/{userid}")
     public String getAllComments(Model model, @PathVariable("userid") Long userid){
         System.out.println(userid);
         List<Comment> list = commentService.getAllCommentByUserID(userid);
