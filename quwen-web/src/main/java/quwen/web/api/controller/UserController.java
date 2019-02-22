@@ -103,4 +103,13 @@ public class UserController {
         }
     }
 
+    @RequestMapping("search")
+    public String searchForNews(@RequestParam("searchByName")String name, Model model){
+        User user = new User();
+        user.setNickname(name);
+        List<User> users = userService.findSearch(user);
+        model.addAttribute("users",users);
+        return "user-list";
+    }
+
 }

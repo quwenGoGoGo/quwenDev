@@ -31,5 +31,7 @@ public interface UserService {
 
 	void deleteUser(Long userID);
 
+	List<User> findSearch(User user);
+
 
 }
