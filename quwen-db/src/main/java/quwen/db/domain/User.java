@@ -14,11 +14,10 @@ public class User {
 
     private Integer id;
 
-    private String username;
+    private String userName;
 
 	@OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comment> comments;
-
 
 	private String password;
 
@@ -46,6 +45,12 @@ public class User {
 
     private Boolean deleted;
 
+    private Integer collected_count;
+
+    private Integer comment_count;
+
+
+
 	public long getUserID() {
 		return userID;
 	}
@@ -62,8 +67,8 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
 	public String getPassword() {
@@ -74,8 +79,8 @@ public class User {
 		this.password = passwold;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public Byte getGender() {
@@ -173,6 +178,23 @@ public class User {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
-   
+
+	public Integer getCollected_count() {
+		return collected_count;
+	}
+
+	public void setCollected_count(Integer collected_count) {
+		this.collected_count = collected_count;
+	}
+
+	public Integer getComment_count() {
+		return comment_count;
+	}
+
+	public void setComment_count(Integer comment_count) {
+		this.comment_count = comment_count;
+	}
+
+
 
 }

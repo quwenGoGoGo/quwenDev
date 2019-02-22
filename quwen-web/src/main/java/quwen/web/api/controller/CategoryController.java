@@ -46,23 +46,11 @@ public class CategoryController {
     @PostMapping("save")
     @ResponseBody
     public String save(@RequestParam HashMap<String,Object> map){
-//        if(category == null){
-//            return "fail";
-//        }
-//        System.out.println(category.getCateID());
-//        if(category.getCateID()!=null && category.getCateID()>0){
-//            categoryService.updateCategory(category);
-//
-//        }else {
-//            categoryService.addCategory(category);
-//        }
         if(map == null || map.size() ==0){
             return null;
         }
         Category category = new Category();
         category.setCateName((String)map.get("cateName"));
-        category.setSort(Integer.parseInt((String)map.get("sort")));
-
         if(map.get("cateID")!=null && (Long.parseLong(map.get("cateID").toString()))>0){
             String cateID = map.get("cateID").toString();
             System.out.println("edit"+map.get("cateID").toString());
