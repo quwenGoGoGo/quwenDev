@@ -10,8 +10,12 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/css/font.css">
   <link rel="stylesheet" href="/css/xadmin.css">
+  <link rel="stylesheet" href="/lib/layui/layui.css">
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/lib/layui/lay/modules/form.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/lib/layui/lay/modules/jquery.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/lib/layui/layui.all.js" charset="utf-8"></script>
   <script type="text/javascript" src="/js/xadmin.js"></script>
   <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
   <!--[if lt IE 9]>
@@ -51,7 +55,7 @@
     <thead>
     <tr>
       <th>
-        <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+        <input type="checkbox" id="quanxuan" onclick="selectAll(this.checked)">全选
       </th>
       <th>评论</th>
       <th>用户</th>
@@ -62,14 +66,14 @@
     </thead>
     <tbody>
     <tr th:each="comment,iterStat:${cmts}">
+        <!--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>-->
       <td>
-        <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-      </td>
-      <!--<td th:text="${iterStat.count}">1</td>-->
-      <td th:text="${iterStat.count}">1</td>
-      <td th:text="${comment.user.userID}">小红</td>
+        <input type="checkbox" id="subcheck" name="subcheck" th:value="${comment.commentID}" lay-skin="primary">
+</td>
+      <td th:text="${comment.commentID}">小红</td>
+      <td th:text="${comment.user.nickname}">小红</td>
       <td th:text="${comment.commentContent}">13000000000</td>
-      <td th:text="${comment.commentDate}">2017-01-01 11:11:42</td>
+      <td th:text="${comment.commentDate}">2017-01-01 </td>
       <td th:text="${comment.news.newsID}">2</td>
       <td class="td-manage">
         <!--<a title="编辑"  th:onclick="x_admin_show('编辑','/cate/edit/'+${Cate.cateID})" href="javascript:;">-->
@@ -99,6 +103,8 @@
     </div>
   </div>
 
+
+
 </div>
 <script>
   layui.use('laydate', function(){
@@ -114,6 +120,7 @@
       elem: '#end' //指定元素
     });
   });
+
 
   function edit(obj,id){
     urls='/comments/edit/'+id;
@@ -144,29 +151,7 @@
       })
     });
   }
-  /*用户-停用*/
-  // function member_stop(obj,id){
-  //     layer.confirm('确认要停用吗？',function(index){
 
-  //         if($(obj).attr('title')=='启用'){
-
-  //           //发异步把用户状态进行更改
-  //           $(obj).attr('title','停用')
-  //           $(obj).find('i').html('&#xe62f;');
-
-  //           $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-  //           layer.msg('已停用!',{icon: 5,time:1000});
-
-  //         }else{
-  //           $(obj).attr('title','启用')
-  //           $(obj).find('i').html('&#xe601;');
-
-  //           $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-  //           layer.msg('已启用!',{icon: 5,time:1000});
-  //         }
-
-  //     });
-  // }
 
   /*用户-删除*/
   function member_del(obj,id){
@@ -177,18 +162,47 @@
     });
   }
 
-
-
-  function delAll (argument) {
-
-    var data = tableCheck.getData();
-
-    layer.confirm('确认要删除吗？'+data,function(index){
-      //捉到所有被选中的，发异步进行删除
-      layer.msg('删除成功', {icon: 1});
-      $(".layui-form-checked").not('.header').parents('tr').remove();
-    });
+  function delAll(){
+    //判断至少写了一项
+    var checkedNum = $("input[name='subcheck']:checked").length;
+    if(checkedNum==0){
+      alert("请至少选择一项!");
+      return false;
+    }
+    if(confirm("确定删除所选项目?")){
+      var checkedList = new Array();
+      $("input[name='subcheck']:checked").each(function(){
+        checkedList.push($(this).val());
+      });
+      $.ajax({
+        type:'post',
+        url:'/comments/delAll',
+        data:{"delitems":checkedList.toString()},
+        datatype:"html",
+        success:function(data){
+          $("[name='checkbox2']:checkbox").attr("checked",false);
+          location.reload();//页面刷新
+        },
+        error:function(data){
+          art.dialog.tips('删除失败!');
+        }
+      });
+    }
   }
+
+  function selectAll(selectStatus){//传入参数（全选框的选中状态）
+    //根据name属性获取到单选框的input，使用each方法循环设置所有单选框的选中状态
+    if(selectStatus){
+      $("input[name='subcheck']").each(function(i,n){
+        n.checked = true;
+      });
+    }else{
+      $("input[name='subcheck']").each(function(i,n){
+        n.checked = false;
+      });
+    }
+  }
+
 </script>
 <script>var _hmt = _hmt || []; (function() {
   var hm = document.createElement("script");
