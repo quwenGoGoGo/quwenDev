@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import quwen.db.domain.Category;
 import quwen.db.service.CategoryService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,5 +91,18 @@ public class CategoryController {
         System.out.println("cateIDdel:"+id);
         categoryService.deleteCategory(id);
         return "success";
+    }
+
+    @RequestMapping("delAll")
+    public void batchDeletes(HttpServletRequest request, HttpServletResponse response){
+        String items = request.getParameter("delitems");
+        String[] strs = items.split(",");
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                Long a = Long.parseLong(strs[i]);
+                categoryService.deleteCategory(a);
+            } catch (Exception e) {
+            }
+        }
     }
 }
