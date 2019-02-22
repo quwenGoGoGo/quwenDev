@@ -77,8 +77,7 @@
                 <span class="x-red">*</span>新闻
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="newsID" name="newsID" th:field="${comment.news.newsID}" required="required" lay-verify="required" readonly="readonly"
-                       autocomplete="off" class="layui-input">
+                <input type="text" th:value="${comment.news.newsID}" id="newsID" name="newsID" readonly class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" th:if="${isAdd}==true">
@@ -86,8 +85,7 @@
                 <span class="x-red">*</span>新闻
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="tnewsID" name="tnewsID" th:field="${comment.news.newsID}" required="required" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" th:value="${newsID}" id="tnewsID" name="newsID" class="layui-input" readonly>
             </div>
         </div>
         <!--<div class="layui-form-item">-->

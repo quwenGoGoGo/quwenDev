@@ -35,6 +35,10 @@ public class NewsController {
     @GetMapping("toList")
     public String getNewsList(Model model){
         List<News> news = newsService.getAllNews();
+        for (News eachNews:news) {
+            eachNews.updateComment_count();
+            eachNews.updateCollected_count();
+        }
         model.addAttribute("news",news);
         List<Category> categories = categoryService.getAllCategory();
         model.addAttribute("categoryList",categories);
@@ -70,6 +74,8 @@ public class NewsController {
         News news = new News();
         if(newsID>0){
             news.setNewsID(newsID);
+            news.updateComment_count();
+            news.updateCollected_count();
         }
         news.setTitle(title);
         Category category = categoryService.findByCateName(cateName);

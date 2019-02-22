@@ -156,8 +156,17 @@ public class News {
         this.collected_count = collected_count;
     }
 
+
+    public void updateCollected_count(){
+        this.collected_count = this.collects.size();
+    }
+
     public Integer getComment_count() {
         return comment_count;
+    }
+
+    public void updateComment_count() {
+        this.comment_count = this.comments.size();
     }
 
     public void setComment_count(Integer comment_count) {
