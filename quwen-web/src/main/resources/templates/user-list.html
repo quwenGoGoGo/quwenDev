@@ -33,37 +33,13 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end">
+        <form class="layui-form layui-col-md12 x-so layui-form-pane" action="/user/search" method="post">
+            <div class="layui-inline">
+                <label for="searchByName" class="layui-form-label">用户名</label></div>
             <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>支付状态</option>
-                    <option>已支付</option>
-                    <option>未支付</option>
-                </select>
+                <input type="text" id="searchByName" name="searchByName" class="layui-input"  autocomplete="off">
             </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                    <option>支付方式</option>
-                    <option>支付宝</option>
-                    <option>微信</option>
-                    <option>货到付款</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select name="contrller">
-                    <option value="">订单状态</option>
-                    <option value="0">待确认</option>
-                    <option value="1">已确认</option>
-                    <option value="2">已收货</option>
-                    <option value="3">已取消</option>
-                    <option value="4">已完成</option>
-                    <option value="5">已作废</option>
-                </select>
-            </div>
-            <input type="text" name="username"  placeholder="请输入订单号" autocomplete="off" class="layui-input">
-            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <input type="submit" class="layui-btn layui-icon" value="搜索">
         </form>
     </div>
     <xblock>
@@ -167,10 +143,25 @@
         });
     }
 
+    function get(obj,id){
+        urls='/comments/toList/'+id;
+        // alert(urls);
+        layer.open({
+            type: 2,
+            area: ['600px', '400px'],
+            fix: false, //不固定
+            maxmin: true,
+            shadeClose: true,
+            shade:0.4,
+            title: '评论列表',
+            content: urls
+        });
+    }
+
     // 编辑
     function edit(obj,id){
         urls='/user/edit/'+id;
-        alert(urls);
+        // alert(urls);
         layer.open({
             type: 2,
             area: ['600px', '400px'],
@@ -215,17 +206,32 @@
         });
     }
 
-
-
-    function delAll (argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+    function delAll(){
+        //判断至少写了一项
+        var checkedNum = $("input[name='subcheck']:checked").length;
+        if(checkedNum==0){
+            alert("请至少选择一项!");
+            return false;
+        }
+        if(confirm("确定删除所选项目?")){
+            var checkedList = new Array();
+            $("input[name='subcheck']:checked").each(function(){
+                checkedList.push($(this).val());
+            });
+            $.ajax({
+                type:'post',
+                url:'/user/delAll',
+                data:{"delitems":checkedList.toString()},
+                datatype:"html",
+                success:function(data){
+                    $("[name='checkbox2']:checkbox").attr("checked",false);
+                    location.reload();//页面刷新
+                },
+                error:function(data){
+                    art.dialog.tips('删除失败!');
+                }
+            });
+        }
     }
 </script>
 <script>var _hmt = _hmt || []; (function() {

@@ -3,10 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/quwen.iml" filepath="$PROJECT_DIR$/quwen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quwen-core/quwen-core.iml" filepath="$PROJECT_DIR$/quwen-core/quwen-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quwen-db/quwen-db.iml" filepath="$PROJECT_DIR$/quwen-db/quwen-db.iml" />
       <module fileurl="file://$PROJECT_DIR$/quwen-web/quwen-web.iml" filepath="$PROJECT_DIR$/quwen-web/quwen-web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quwen-core/quwencore.iml" filepath="$PROJECT_DIR$/quwen-core/quwencore.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quwen-db/quwendb.iml" filepath="$PROJECT_DIR$/quwen-db/quwendb.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quwen-wx-api/quwenweb.iml" filepath="$PROJECT_DIR$/quwen-wx-api/quwenweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quwen-wx-api/quwen-wx-api.iml" filepath="$PROJECT_DIR$/quwen-wx-api/quwen-wx-api.iml" />
     </modules>
   </component>
 </project>

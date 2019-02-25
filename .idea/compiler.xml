@@ -6,25 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="quwen-core" />
+        <module name="quwen-db" />
         <module name="quwen-web" />
-        <module name="quwencore" />
-        <module name="quwendb" />
-        <module name="quwenweb" />
+        <module name="quwen-wx-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="quwen" target="1.8" />
+      <module name="quwen-core" target="1.8" />
+      <module name="quwen-db" target="1.8" />
       <module name="quwen-web" target="1.8" />
-      <module name="quwencore" target="1.8" />
-      <module name="quwendb" target="1.8" />
-      <module name="quwenweb" target="1.8" />
+      <module name="quwen-wx-api" target="1.8" />
     </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="quwencore" options="-parameters" />
-      <module name="quwendb" options="-parameters" />
-      <module name="quwenweb" options="-parameters" />
-    </option>
   </component>
 </project>

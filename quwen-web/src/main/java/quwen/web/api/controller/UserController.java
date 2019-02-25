@@ -8,6 +8,8 @@ import quwen.db.domain.Category;
 import quwen.db.domain.User;
 import quwen.db.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +87,29 @@ public class UserController {
 //        System.out.println("cateIDdel:"+id);
         userService.deleteUser(id);
         return "success";
+    }
+
+    @RequestMapping("delAll")
+    public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+        String items = request.getParameter("delitems");// System.out.println(items);
+        String[] strs = items.split(",");
+
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                Long a = Long.parseLong(strs[i]);
+                userService.deleteUser(a);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @RequestMapping("search")
+    public String searchForNews(@RequestParam("searchByName")String name, Model model){
+        User user = new User();
+        user.setNickname(name);
+        List<User> users = userService.findSearch(user);
+        model.addAttribute("users",users);
+        return "user-list";
     }
 
 }
