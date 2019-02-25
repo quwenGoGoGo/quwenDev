@@ -108,7 +108,8 @@ public class NewsController {
         news.setContent(content);
         news.setAuthor(author);
         news.setCtime(new Date());
-        news.setStatus(status);
+        boolean isStatus=(status==1)?true:false;
+        news.setStatus(isStatus);
         boolean isStick=(stick==1)?true:false;
         news.setStick(isStick);
 

@@ -32,4 +32,6 @@ public class WxNewsController {
         data.put("info", info);
         return ResponseUtil.ok(data);
     }
+
+
 }

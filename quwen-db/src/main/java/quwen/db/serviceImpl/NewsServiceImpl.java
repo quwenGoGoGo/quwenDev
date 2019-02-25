@@ -39,6 +39,8 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(newsID);
     }
 
+
+
     @Override
     public List<News> findSearch(News newsModel){
 
@@ -94,4 +96,14 @@ public class NewsServiceImpl implements NewsService {
     public List<News> findNewsByStory(NewsStory newsStory){
         return newsRepository.findNewsByNewsStory(newsStory);
     }
+
+    @Override
+    public List<News> findNewsByStatusIsTrue(){
+        return newsRepository.findNewsByStatusIsTrue();
+    }
+
+    public List<News> findNewsByStoryAndOrderByCtime(NewsStory newsStory){
+        return newsRepository.findNewsByNewsStoryOrderByCtimeDesc(newsStory);
+    }
+
 }

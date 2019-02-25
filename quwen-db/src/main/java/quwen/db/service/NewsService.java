@@ -12,6 +12,8 @@ public interface NewsService {
     public List<News> findAllByStickIsFalse();
     public List<News> findNewsByCategory(Category category);
     public List<News> findNewsByStory(NewsStory newsStory);
+    public List<News> findNewsByStoryAndOrderByCtime(NewsStory newsStory);
+    public List<News> findNewsByStatusIsTrue();
     List<News> getAllNews();
     void deleteNews(Long newsID);
     List<News> findSearch(News newsModel);

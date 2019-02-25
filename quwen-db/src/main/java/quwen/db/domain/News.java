@@ -49,8 +49,8 @@ public class News {
     private boolean stick = false;
 
     //设置是否为推荐
-    @Column(columnDefinition = "INT default 0")
-    private Integer status = 0;
+    @Column(columnDefinition = "bit default 0")
+    private boolean status = false;
 
     //新闻表中设置分类外键，多对一的关系
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
@@ -73,13 +73,14 @@ public class News {
     private List<Comment> comments;
 
 
-    public int getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
+
 
     public Category getCategory() {
         return category;
@@ -196,10 +197,6 @@ public class News {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public List<Comment> getComments() {

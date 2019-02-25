@@ -9,8 +9,9 @@ public class NewsVo {
     private String content;
     private String cateName;
     private String author;
-    private Date ctime;
-    private Integer status;
+    private String ctime_date;
+    private String ctime_time;
+    private boolean status = false;
     private boolean stick =false;
     private Integer share_count;
     private Integer view_count;
@@ -41,12 +42,20 @@ public class NewsVo {
         this.author = author;
     }
 
-    public Date getCtime() {
-        return ctime;
+    public String getCtime_date() {
+        return ctime_date;
     }
 
-    public void setCtime(Date ctime) {
-        this.ctime = ctime;
+    public void setCtime_date(String ctime_date) {
+        this.ctime_date = ctime_date;
+    }
+
+    public String getCtime_time() {
+        return ctime_time;
+    }
+
+    public void setCtime_time(String ctime_time) {
+        this.ctime_time = ctime_time;
     }
 
     public Integer getShare_count() {
@@ -57,11 +66,11 @@ public class NewsVo {
         this.share_count = share_count;
     }
 
-    public Integer getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

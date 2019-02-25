@@ -5,6 +5,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import quwen.db.domain.Comment;
+import quwen.db.domain.News;
+import quwen.db.domain.User;
 import quwen.db.repository.CommentRepository;
 import quwen.db.service.CommentService;
 
@@ -68,10 +70,38 @@ public class CommentServiceImpl implements CommentService {
                 list.add(criteriaBuilder.like(root.get("commentContent").as(String.class),"%" + comment.getCommentContent() + "%"));
             }
 
+            if(comment.getNews()!=null&&comment.getNews().getNewsID()!=null){
+                list.add(criteriaBuilder.equal(root.get("news").as(News.class), comment.getNews()));
+            }
+
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         }
     });
+        return result;
+    }
+
+    @Override
+    public List<Comment> findSearch_user(Comment comment){
+        List<Comment> result = commentRepository.findAll(new Specification<Comment>() {
+            @Override
+            public Predicate toPredicate(Root<Comment> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> list = new ArrayList<Predicate>();
+
+                SimpleDateFormat sdfmat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                if(!StringUtils.isEmpty(comment.getCommentContent())){
+                    list.add(criteriaBuilder.like(root.get("commentContent").as(String.class),"%" + comment.getCommentContent() + "%"));
+                }
+
+                if(comment.getUser()!=null&&comment.getUser().getUserID()!=null){
+                    list.add(criteriaBuilder.equal(root.get("user").as(User.class), comment.getUser()));
+                }
+
+                Predicate[] p = new Predicate[list.size()];
+                return criteriaBuilder.and(list.toArray(p));
+            }
+        });
         return result;
     }
 }

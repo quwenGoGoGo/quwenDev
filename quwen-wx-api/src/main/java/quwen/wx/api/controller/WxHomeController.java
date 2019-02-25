@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 import quwen.core.util.ResponseUtil;
 import quwen.db.domain.Category;
 import quwen.db.domain.News;
+import quwen.db.domain.NewsStory;
 import quwen.db.service.CategoryService;
 import quwen.db.service.NewsService;
+import quwen.db.service.StoryService;
 import quwen.wx.api.dao.CategoryVo;
+import quwen.wx.api.dao.NewsStoryVo;
 import quwen.wx.api.dao.NewsVo;
 import quwen.wx.api.service.HomeCacheManager;
 import quwen.wx.api.util.CategoryMapper;
 import quwen.wx.api.util.NewsMapper;
+import quwen.wx.api.util.StoryMapper;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
@@ -34,6 +38,9 @@ public class WxHomeController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private StoryService storyService;
+
     private final static ArrayBlockingQueue<Runnable> WORK_QUEUE = new ArrayBlockingQueue<>(9);
 
     private final static RejectedExecutionHandler HANDLER = new ThreadPoolExecutor.CallerRunsPolicy();
@@ -48,6 +55,7 @@ public class WxHomeController {
         Map<String, Object> data = new HashMap<>();
         NewsMapper newsMapper = new NewsMapper();
         CategoryMapper categoryMapper = new CategoryMapper();
+        StoryMapper storyMapper = new StoryMapper();
 
 //        Callable<List> categoryCallable = () -> categoryService.getAllCategory();
         //Callable<List>  stickNewsListCallable = () -> newsService.findAllByStickIsTrue();
@@ -62,11 +70,22 @@ public class WxHomeController {
         //executorService.submit(newsListTask);
 
         List<CategoryVo> category = categoryMapper.CategoryListPoToVo(categoryService.getAllCategory());
+        List<NewsStory> newsStories = storyService.findAll();
+//        for(NewsStory newsStory:newsStories){
+//            if(newsStory.getStoryID()==1){
+//                newsStories.remove(newsStory);
+//            }
+//            if(newsStory.getNews().size()<3){
+//                newsStories.remove(newsStory);
+//            }
+//        }
+        List<NewsStoryVo> stories = storyMapper.StoryListPoToVo(newsStories);
         List<NewsVo> stickNews = newsMapper.NewsListPoToVo(newsService.findAllByStickIsTrue());
-        List<NewsVo> newList = newsMapper.NewsListPoToVo(newsService.findAllByStickIsFalse());
+        List<NewsVo> newList = newsMapper.NewsListPoToVo(newsService.findNewsByStatusIsTrue());
 
         try{
             data.put("category", category);
+            data.put("story", stories);
             data.put("stickNews", stickNews);
             data.put("newsList", newList);
         }
@@ -88,4 +107,17 @@ public class WxHomeController {
         data.put("newsList", news);
         return ResponseUtil.ok(data);
     }
+
+    @GetMapping("/story")
+    public Object NewsStoryList(@NotNull Long storyID){
+        Map<String, Object> data = new HashMap<>();
+        NewsMapper newsMapper = new NewsMapper();
+        NewsStory newsStory = storyService.findByStoryID(storyID);
+        List<NewsVo> news = newsMapper.NewsListPoToVo(newsService.findNewsByStoryAndOrderByCtime(newsStory));
+
+        data.put("newsStory", news);
+        return ResponseUtil.ok(data);
+
+    }
+
 }
