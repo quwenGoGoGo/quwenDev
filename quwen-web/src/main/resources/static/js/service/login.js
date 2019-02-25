@@ -6,7 +6,7 @@ $(function () {
         function(){
             var username = $(".login-form input[name= 'username']").val();
             var password = $(".login-form input[name = 'password']").val();
-            util.request(api.login, {"username":username, "password":password},'post').then((res)=>{
+            util.postRequest(api.login, {"username":username, "password":password}).then((res)=>{
                 console.log(res);
                 window.location.href = api.home;
             }).catch((res)=>{
@@ -16,7 +16,7 @@ $(function () {
     );
     $("#logout").click(
         function () {
-            util.request(api.logout).then((res)=>{
+            util.getRequest(api.logout).then((res)=>{
                 console.log(res);
                 window.location.reload();
             }).catch((res)=>{
