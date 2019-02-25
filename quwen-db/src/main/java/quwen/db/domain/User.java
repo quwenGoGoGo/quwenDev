@@ -1,80 +1,57 @@
 package quwen.db.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userID;
 
-    private Integer id;
+    //微信授权id
+	@Column(unique = true)
+	private String weixinOpenid;
 
-    private String username;
-    
-    private String password;
+	//微信昵称
+	@Column(unique = true, nullable = false)
+	private String nickname;
 
-    private Byte gender;
+	//微信头像
+	private String avatar;
 
-    private LocalDate birthday;
+	//用户性别
+	private Byte gender;
 
-    private LocalDateTime lastLoginTime;
+	//最后一次登录时间
+	private LocalDateTime lastLoginTime;
 
-    private String lastLoginIp;
+	//最后一次登录ip
+	private String lastLoginIp;
 
-    private String nickname;
+	private Integer comment_count;
 
-    private String mobile;
+	private Integer collect_count;
 
-    private String avatar;
+	//关联表comments
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Comment> comments;
 
-    private String weixinOpenid;
+	//用户表关联收藏表，一个用户对应多条收藏纪录
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Collect> collects;
 
-    private Byte status;
-
-    private LocalDateTime addTime;
-
-    private LocalDateTime updateTime;
-
-    private Boolean deleted;
 
 	public long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(long userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String passwold) {
-		this.password = passwold;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public Byte getGender() {
 		return gender;
@@ -82,14 +59,6 @@ public class User {
 
 	public void setGender(Byte gender) {
 		this.gender = gender;
-	}
-
-	public LocalDate getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(LocalDate birthday) {
-		this.birthday = birthday;
 	}
 
 	public LocalDateTime getLastLoginTime() {
@@ -116,14 +85,6 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
 	public String getAvatar() {
 		return avatar;
 	}
@@ -140,37 +101,35 @@ public class User {
 		this.weixinOpenid = weixinOpenid;
 	}
 
-	public Byte getStatus() {
-		return status;
+	public List<Comment> getComments() {
+		return comments;
 	}
 
-	public void setStatus(Byte status) {
-		this.status = status;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
-	public LocalDateTime getAddTime() {
-		return addTime;
+	public List<Collect> getCollects() {
+		return collects;
 	}
 
-	public void setAddTime(LocalDateTime addTime) {
-		this.addTime = addTime;
+	public void setCollects(List<Collect> collects) {
+		this.collects = collects;
 	}
 
-	public LocalDateTime getUpdateTime() {
-		return updateTime;
+	public Integer getComment_count() {
+		return comment_count;
 	}
 
-	public void setUpdateTime(LocalDateTime updateTime) {
-		this.updateTime = updateTime;
+	public void setComment_count(Integer comment_count) {
+		this.comment_count = comment_count;
 	}
 
-	public Boolean getDeleted() {
-		return deleted;
+	public Integer getCollect_count() {
+		return collect_count;
 	}
 
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
+	public void setCollect_count(Integer collect_count) {
+		this.collect_count = collect_count;
 	}
-   
-
 }

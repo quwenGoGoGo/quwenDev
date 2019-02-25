@@ -10,15 +10,13 @@ public class Collect {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long collectID;
 
+    @Temporal(TemporalType.DATE)
     private Date time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
     private News news;
 
-    public Collect(Date time) {
-        this.time = time;
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -50,6 +48,10 @@ public class Collect {
 
     public void setTime(Date colTime) {
         this.time = time;
+    }
+
+    public News getNews() {
+        return news;
     }
 }
 

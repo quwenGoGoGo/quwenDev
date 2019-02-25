@@ -12,39 +12,70 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long newsID;
 
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false, fetch = FetchType.LAZY)
-    //可选属性optional=false,表示分类不能为空。删除新闻，不影响分类
-    @JoinColumn(name="cate_id")
-    //设置在category表中的关联字段(外键)
-    private Category category;
-    private String author;
-    private Date ctime;
-    private Integer share_count;
-    private Integer status;
-    @OneToMany(mappedBy = "news",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Collect> collects;
-
+    //新闻标题,唯一且不为空
+    @Column(unique = true, nullable = false)
     private String title;
 
+    //新闻图片
     private String picUrl;
 
+    //新闻内容，设置数据库格式为text
+    @Column(columnDefinition = "text")
     private String content;
 
-    private Integer view_count;
+    //新闻来源
+    private String author;
 
-    private Integer collected_count;
+    //新闻发布时间，设置格式为日期
+    @Temporal(TemporalType.DATE)
+    private Date ctime;
 
-    private Integer comment_count;
+    //新闻关键字
+    private String keywords;
+
+    //新闻主题描述
+    private String description;
+
+    //新闻收藏量，默认为0
+    @Column(columnDefinition = "INT default 0")
+    private Integer collected_count = 0;
+
+    //新闻评论量，默认为0
+    @Column(columnDefinition = "INT default 0")
+    private Integer comment_count = 0;
+
     //设置是否置顶
     @Column(columnDefinition = "bit default 0")
-    private boolean stick =false;
+    private boolean stick = false;
 
-    private LocalDateTime addTime;
+    //设置是否为推荐
+    @Column(columnDefinition = "INT default 0")
+    private Integer status = 0;
 
-    private LocalDateTime updateTime;
-    //是否删除
-    @Column(columnDefinition = "bit default 0")
-    private Boolean deleted;
+    //新闻表中设置分类外键，多对一的关系
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+    //可选属性optional=false,表示分类不能为空。删除新闻，不影响分类
+    @JoinColumn(name = "cate_id")
+    //设置在category表中的关联字段(外键)
+    private Category category;
+
+    //新闻表关联收藏表，一条新闻对应多条收藏纪录
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Collect> collects;
+
+    //新闻表关联评论表，一条新闻对应多条评论纪录
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -61,22 +92,6 @@ public class News {
         this.ctime = ctime;
     }
 
-    public Integer getShare_count() {
-        return share_count;
-    }
-
-    public void setShare_count(Integer share_count) {
-        this.share_count = share_count;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public List<Collect> getCollects() {
         return collects;
     }
@@ -89,13 +104,15 @@ public class News {
         return stick;
     }
 
+    public void setStick(boolean stick) {
+        stick = stick;
+    }
 
-
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author){
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -103,87 +120,88 @@ public class News {
         return newsID;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public Integer getView_count() {
-        return view_count;
-    }
-
-    public Integer getCollected_count() {
-        return collected_count;
-    }
-
-    public Integer getComment_count() {
-        return comment_count;
-    }
-
-    public boolean stick() {
-        return stick;
-    }
-
-    public LocalDateTime getAddTime() {
-        return addTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
     public void setNewsID(Long newsID) {
         this.newsID = newsID;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getPicUrl() {
+        return picUrl;
+    }
+
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
 
-    public void setView_count(Integer view_count) {
-        this.view_count = view_count;
+    public Integer getCollected_count() {
+        return collected_count;
     }
 
     public void setCollected_count(Integer collected_count) {
         this.collected_count = collected_count;
     }
 
+
+    public void updateCollected_count(){
+        this.collected_count = this.collects.size();
+    }
+
+    public Integer getComment_count() {
+        return comment_count;
+    }
+
+    public void updateComment_count() {
+        this.comment_count = this.comments.size();
+    }
+
     public void setComment_count(Integer comment_count) {
         this.comment_count = comment_count;
     }
 
-    public void setStick(boolean stick) {
-        stick = stick;
+    public boolean stick() {
+        return stick;
     }
 
-    public void setAddTime(LocalDateTime addTime) {
-        this.addTime = addTime;
+    public String getKeywords() {
+        return keywords;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
