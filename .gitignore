@@ -3,10 +3,10 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
-*.iml
+#.idea
+#*.iml
 out
-gen
+gens
 .idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_7.xml
 .idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_7.xml
 .idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_7.xml
@@ -48,7 +48,7 @@ gen
 .idea/libraries/Maven__org_springframework_spring_tx_5_1_3_RELEASE.xml
 .idea/libraries/Maven__org_springframework_spring_web_5_1_3_RELEASE.xml
 .idea/libraries/Maven__org_springframework_spring_webmvc_5_1_3_RELEASE.xml
-.idea/vcs.xml
+#.idea/vcs.xml
 .idea/workspace.xml
 quwen-core/target/
 quwen-db/target/
