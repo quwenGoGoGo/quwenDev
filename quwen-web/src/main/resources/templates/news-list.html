@@ -73,7 +73,7 @@
         <thead>
           <tr>
             <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+              <input type="checkbox" id="quanxuan" onclick="selectAll(this.checked)">全选
             </th>
             <th>编号</th>
             <th>标题</th>
@@ -88,7 +88,7 @@
         <tbody>
           <tr th:each="News,iterStat:${news}">
             <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+              <input type="checkbox" id="subcheck" name="subcheck" th:value="${News.newsID}">
             </td>
             <td th:text="${iterStat.count}">1</td>
             <td th:text="${News.getTitle()}">阿里：马云从未转让和退出淘宝股份也没有这个打算</td>
@@ -162,6 +162,18 @@
           })
       })
 
+      function selectAll(selectStatus){//传入参数（全选框的选中状态）
+        //根据name属性获取到单选框的input，使用each方法循环设置所有单选框的选中状态
+        if(selectStatus){
+          $("input[name='subcheck']").each(function(i,n){
+            n.checked = true;
+          });
+        }else{
+          $("input[name='subcheck']").each(function(i,n){
+            n.checked = false;
+          });
+        }
+      }
 
       // 编辑
       function edit(obj,id){
@@ -244,15 +256,32 @@
 
 
 
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+      function delAll() {
+        //判断至少写了一项
+        var checkedNum = $("input[name='subcheck']:checked").length;
+        if (checkedNum == 0) {
+          alert("请至少选择一项!");
+          return false;
+        }
+        if (confirm("确定删除所选项目?")) {
+          var checkedList = new Array();
+          $("input[name='subcheck']:checked").each(function () {
+            checkedList.push($(this).val());
+          });
+          $.ajax({
+            type: 'post',
+            url: '/news/delAll',
+            data: {"delitems": checkedList.toString()},
+            datatype: "html",
+            success: function (data) {
+              $("[name='checkbox2']:checkbox").attr("checked", false);
+              location.reload();//页面刷新
+            },
+            error: function (data) {
+              art.dialog.tips('删除失败!');
+            }
+          });
+        }
       }
     </script>
     <script>var _hmt = _hmt || []; (function() {
