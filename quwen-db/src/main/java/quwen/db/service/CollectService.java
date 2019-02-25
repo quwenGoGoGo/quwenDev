@@ -16,6 +16,6 @@ public interface CollectService {
     Collect updateCollect(Collect collect);
     void deleteCollectByID(Long collectID);
     List<Collect> findByNews_NewsID(Long newsID);
-
+    List<Collect> getAllCollectByUserID(Long userID);
 }
 

@@ -26,58 +26,31 @@
         <div class="layui-form-item" th:if="${isAdd}==false">
             <!--<label>id</label>-->
             <!--<input type="text" name="id" readonly="readonly" th:field="${category.cateID}">-->
-            <label for="collectID" class="layui-form-label">
-                <span class="x-red">*</span>收藏编号
+            <label for="storyID" class="layui-form-label">
+                <span class="x-red">*</span>专题ID
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="collectID" name="collectID" th:field="${collect.collectID}" readonly="readonly" required="required" lay-verify="required"
+                <input type="text" id="storyID" name="storyID" th:field="${story.storyID}" readonly="readonly" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item" th:if="${isAdd}==true">
-            <label for="tuserName" class="layui-form-label">
-                <span class="x-red">*</span>用户编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="tuserName" name="tuserName" th:field="${collect.user.userID}" required="required" lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" th:if="${isAdd}==false">
-            <label for="fuserName" class="layui-form-label">
-                <span class="x-red">*</span>用户编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="fuserName" name="fuserName" th:field="${collect.user.userID}" required="required" lay-verify="required" readonly="readonly"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
         <div class="layui-form-item">
-            <label for="collectdate" class="layui-form-label">
-                <span class="x-red">*</span>收藏时间
+            <label for="keywords" class="layui-form-label">
+                <span class="x-red">*</span>关键字
             </label>
             <div class="layui-input-inline">
-                <input type="date" id="collectdate" name="collectdate" th:field="${collect.time}" required="required" lay-verify="required"
+                <input type="text" id="keywords" name="keywords" th:field="${story.keywords}" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-
-        <div class="layui-form-item" th:if="${isAdd}==false">
-            <label for="newsID" class="layui-form-label">
-                <span class="x-red">*</span>新闻编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" th:value="${collect.news.newsID}" id="newsID" name="newsID" readonly class="layui-input">
-            </div>
+        <div class="layui-form-item">
+        <label for="theme" class="layui-form-label">
+        <span class="x-red">*</span>主题
+        </label>
+        <div class="layui-input-inline">
+        <input type="text" id="theme" name="theme" th:field="${story.theme}" required="" lay-verify="sort"
+        autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item" th:if="${isAdd}==true">
-            <label for="tnewsID" class="layui-form-label">
-                <span class="x-red">*</span>新闻编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" th:value="${newsID}" id="tnewsID" name="newsID" class="layui-input" readonly>
-            </div>
         </div>
 
         <div class="layui-form-item">
@@ -113,7 +86,7 @@
             // var index = parent.layer.getFrameIndex(window.name);
             // parent.layer.close(index);//关闭当前页
             $.ajax({
-                url:'/col/save',
+                url:'/story/save',
                 cache: false,
                 // async:false,
                 method:'post',

@@ -33,5 +33,4 @@ public interface UserService {
 
 	List<User> findSearch(User user);
 
-
 }

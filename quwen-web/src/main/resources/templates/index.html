@@ -20,7 +20,10 @@
 <body>
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="index.html">趣闻</a></div>
+        <div class="logo">
+            <a src="templates/welcome.html" th:_href="@{/user/welcome}">趣闻
+            </a>
+        </div>
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
@@ -68,9 +71,9 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="/news/toList" th:_href="@{/news/toList}">
+                        <a _href="/story/toList" th:action="@{/story/toList}">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>客户查询</cite>
+                            <cite>新闻故事</cite>
                             
                         </a>
                     </li>
@@ -144,7 +147,12 @@
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <!--<iframe src='welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>-->
+                <!--<a _href="/user/welcome" th:action="@{/user/welcome}">-->
+                <iframe src="templates/welcome.html" th:src="@{/user/welcome}" frameborder="0"></iframe>
+
+
+                </a>
             </div>
           </div>
         </div>
