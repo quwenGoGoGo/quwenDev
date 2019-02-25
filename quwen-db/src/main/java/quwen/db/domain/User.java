@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userID;
+    private Long userID;
 
     //微信授权id
 	@Column(unique = true)
@@ -44,11 +44,11 @@ public class User {
 	private List<Collect> collects;
 
 
-	public long getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUserID(long userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 
