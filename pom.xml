@@ -7,6 +7,7 @@
         <module>quwen-core</module>
         <module>quwen-wx-api</module>
         <module>quwen-web</module>
+        <module>quwen-all</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
