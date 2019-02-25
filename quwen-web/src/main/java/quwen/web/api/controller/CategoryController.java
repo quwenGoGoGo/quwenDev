@@ -61,7 +61,7 @@ public class CategoryController {
         }
         Category category = new Category();
         category.setCateName((String)map.get("cateName"));
-        category.setSort(Integer.parseInt((String)map.get("sort")));
+//        category.setSort(Integer.parseInt((String)map.get("sort")));
 
         if(map.get("cateID")!=null && (Long.parseLong(map.get("cateID").toString()))>0){
             String cateID = map.get("cateID").toString();

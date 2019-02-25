@@ -42,7 +42,7 @@ public class NewsController {
 
         if(id>0){
             model.addAttribute("isAdd",false);
-            model.addAttribute("news",newsService.findNewsByNewsID(id));
+            model.addAttribute("news",newsService.getNewsByID(id));
         }else{
             model.addAttribute("isAdd",true);
             model.addAttribute("news",new News());
