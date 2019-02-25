@@ -70,7 +70,7 @@
             <td th:text="${User.getComment_count()}">7829.10</td>
             <td th:text="${User.getCollect_count()}">10</td>
             <td class="td-manage">
-                <a title="评论列表"  th:onclick="'javascript:get('+this+','+${User.userID}+');'">
+                <a title="评论列表"  th:onclick="'javascript:getcmt('+this+','+${User.userID}+');'">
                     <i class="layui-icon">&#xe611;</i>
                 </a>
                 <a title="收藏列表" onclick="x_admin_show('修改密码','member-password.html',600,400)" href="javascript:;">
@@ -128,7 +128,7 @@
         });
     }
 
-    function get(obj,id){
+    function getcmt(obj,id){
         urls='/comments/toListUser/'+id;
         alert(urls);
         layer.open({
