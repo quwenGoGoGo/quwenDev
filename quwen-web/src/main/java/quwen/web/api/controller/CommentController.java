@@ -8,6 +8,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import quwen.db.domain.Comment;
 import quwen.db.domain.News;
+import quwen.db.domain.User;
 import quwen.db.service.CommentService;
 import quwen.db.service.NewsService;
 import quwen.db.service.UserService;
@@ -53,6 +54,14 @@ public class CommentController {
         return "comment_list";
     }
 
+    @GetMapping("toListUser/{userid}")
+    public String getAllComments(Model model, @PathVariable("userid") Long userid){
+        System.out.println(userid);
+        model.addAttribute("userID", userid);
+        List<Comment> list = commentService.getAllCommentByUserID(userid);
+        model.addAttribute("cmts", list);
+        return "comment_list_user";
+    }
 
     @RequestMapping("edit/{id}/{newsID}")
     public String edit(Model model,@PathVariable("id") Long id, @PathVariable("newsID") Long newsID){
@@ -82,6 +91,44 @@ public class CommentController {
         System.out.println(comment.getCommentID());
         News news = newsService.getNewsByID(newsID);
         comment.setNews(news);
+
+        if(comment.getCommentID() != null && comment.getCommentID() > 0)
+            commentService.updateComment(comment);
+        else
+            commentService.addComment(comment);
+
+        return "redirect:/comments/all";
+    }
+
+    @RequestMapping("editUser/{id}/{userID}")
+    public String editUser(Model model,@PathVariable("id") Long id, @PathVariable("userID") Long userID){
+        System.out.println(id);
+
+        if(id > 0){
+            model.addAttribute("isadd", false);
+            model.addAttribute("comment", commentService.getCommentByID(id));
+            System.out.println(id);
+        }
+        else{
+            model.addAttribute("isadd", true);
+            model.addAttribute("comment", new Comment());
+            model.addAttribute("userID", userID);
+        }
+        System.out.println("edit");
+
+        return "comment_edit_user";
+    }
+
+    @PostMapping("saveuser")
+    @ResponseBody
+    public String saveUser(@ModelAttribute Comment comment,
+                       @RequestParam(value = "userID") Long userID){
+        if(comment == null)
+            return "fail";
+
+        System.out.println(comment.getCommentID());
+       User user = userService.getUserByID(userID);
+        comment.setUser(user);
 
         if(comment.getCommentID() != null && comment.getCommentID() > 0)
             commentService.updateComment(comment);
