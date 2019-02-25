@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>欢迎页面-X-admin2.0</title>
@@ -7,71 +7,82 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../static/css/font.css">
-        <link rel="stylesheet" href="../static/css/xadmin.css">
+        <link rel="stylesheet" href="/css/font.css">
+        <link rel="stylesheet" href="/css/xadmin.css">
     </head>
     <body>
     <div class="x-body layui-anim layui-anim-up">
-        <blockquote class="layui-elem-quote">欢迎管理员：
-            <span class="x-red">test</span>！当前时间:2018-04-25 20:50:53</blockquote>
+        <blockquote class="layui-elem-quote">欢迎管理员,当前时间：
+            <!--<span class="x-red"></span>！当前时间:2018-04-25 20:50:53-->
+            <!--<li>-->
+                <!--<a th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}">time</a>-->
+            <!--</li>-->
+            <li>
+                <a id="time"></a>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    function setTime(){
+                        var dt=new Date();
+                        var arr_week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+                        var strWeek=arr_week[dt.getDay()];
+                        var strHour=dt.getHours();
+                        var strMinutes=dt.getMinutes();
+                        var strSeconds=dt.getSeconds();
+                        if (strMinutes<10) strMinutes="0"+strMinutes;
+                        if (strSeconds<10) strSeconds="0"+strSeconds;
+                        var strYear=dt.getFullYear()+"年";
+                        var strMonth=(dt.getMonth()+1)+"月";
+                        var strDay=dt.getDate()+"日";
+                        <!--var strTime=strHour+":"+strMinutes+":"+strSeconds;-->
+                        strTime=strHour+":"+strMinutes;
+                        time.innerHTML=strYear+strMonth+strDay+" "+strTime+"  "+strWeek;
+                    }
+                    setInterval("setTime()",1000);
+                    /*]]>*/
+                </script>
+            </li>
+        </blockquote>
         <fieldset class="layui-elem-field">
-            <!--<legend>数据统计</legend>-->
-            <!--<div class="layui-field-box">-->
-                <!--<div class="layui-col-md12">-->
-                    <!--<div class="layui-card">-->
-                        <!--<div class="layui-card-body">-->
-                            <!--<div class="layui-carousel x-static-carousel x-static-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">-->
-                                <!--<div carousel-item="">-->
-                                    <!--<ul class="layui-row layui-col-space10 layui-this">-->
-                                        <!--<li class="layui-col-xs2">-->
-                                            <!--<a href="javascript:;" class="x-static-backlog-body">-->
-                                                <!--<h3>文章数</h3>-->
-                                                <!--<p>-->
-                                                    <!--<cite>66</cite></p>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="layui-col-xs2">-->
-                                            <!--<a href="javascript:;" class="x-static-backlog-body">-->
-                                                <!--<h3>会员数</h3>-->
-                                                <!--<p>-->
-                                                    <!--<cite>12</cite></p>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="layui-col-xs2">-->
-                                            <!--<a href="javascript:;" class="x-static-backlog-body">-->
-                                                <!--<h3>回复数</h3>-->
-                                                <!--<p>-->
-                                                    <!--<cite>99</cite></p>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="layui-col-xs2">-->
-                                            <!--<a href="javascript:;" class="x-static-backlog-body">-->
-                                                <!--<h3>商品数</h3>-->
-                                                <!--<p>-->
-                                                    <!--<cite>67</cite></p>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="layui-col-xs2">-->
-                                            <!--<a href="javascript:;" class="x-static-backlog-body">-->
-                                                <!--<h3>文章数</h3>-->
-                                                <!--<p>-->
-                                                    <!--<cite>67</cite></p>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="layui-col-xs2">-->
-                                            <!--<a href="javascript:;" class="x-static-backlog-body">-->
-                                                <!--<h3>文章数</h3>-->
-                                                <!--<p>-->
-                                                    <!--<cite>6766</cite></p>-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                    <!--</ul>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+            <legend>数据统计</legend>
+            <div class="layui-field-box">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-carousel x-static-carousel x-static-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+                                <div carousel-item="">
+                                    <ul class="layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-static-backlog-body">
+                                                <h3>新闻数</h3>
+                                                <p>
+                                                    <cite><input th:value="${news_count}" style="background:transparent;border:0;line-height:40px" id="news_count" name="news_count" class="x-right" readonly>
+                                                    </cite>
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-static-backlog-body">
+                                                <h3>用户数</h3>
+                                                <p>
+                                                    <input th:value="${user_count}" style="background:transparent;border:0;line-height:40px" id="user_count" name="user_count" class="x-right" readonly>
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-static-backlog-body">
+                                                <h3>评论数</h3>
+                                                <p>
+                                                    <input th:value="${comment_count}" style="background:transparent;border:0;line-height:40px" id="comment_count" name="comment_count" class="x-right" readonly>
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </fieldset>
         <fieldset class="layui-elem-field">
             <legend>系统通知</legend>
@@ -141,12 +152,12 @@
                     <tbody>
                         <tr>
                             <th>版权所有</th>
-                            <td>###
+                            <td>
                                 <a href="http://www.baidu.com/" class='x-a' target="_blank">访问官网</a></td>
                         </tr>
                         <tr>
                             <th>开发者</th>
-                            <td>###</td></tr>
+                            <td>趣闻团队</td></tr>
                     </tbody>
                 </table>
             </div>
