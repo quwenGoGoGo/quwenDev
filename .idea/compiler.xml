@@ -24,7 +24,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="quwen-core" options="-parameters" />
       <module name="quwen-db" options="-parameters" />
-      <module name="quwen-web" options="-parameters" />
+      <module name="quwen-web" options="" />
       <module name="quwen-wx-api" options="-parameters" />
     </option>
   </component>

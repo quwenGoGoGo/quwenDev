@@ -31,9 +31,17 @@ public class User {
 	//最后一次登录ip
 	private String lastLoginIp;
 
-	private Integer comment_count;
+	//用户评论量，默认为0
+	@Column(columnDefinition = "INT default 0")
+	private Integer comment_count = 0;
 
-	private Integer collect_count;
+	//用户收藏量，默认为0
+	@Column(columnDefinition = "INT default 0")
+	private Integer collect_count = 0;
+
+	//用户数量，默认为0
+	@Column(columnDefinition = "INT default 0")
+	private Integer user_count = 0;
 
 	//关联表comments
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -131,5 +139,22 @@ public class User {
 
 	public void setCollect_count(Integer collect_count) {
 		this.collect_count = collect_count;
+	}
+
+	public void updateComment_count() {
+		this.comment_count = this.comments.size();
+	}
+
+	public void updateCollected_count(){
+		this.collect_count = this.collects.size();
+	}
+
+
+	public Integer getUser_count() {
+		return user_count;
+	}
+
+	public void setUser_count(Integer user_count) {
+		this.user_count = user_count;
 	}
 }

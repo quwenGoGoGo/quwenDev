@@ -32,23 +32,23 @@
     <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
-  <div class="layui-row">
-    <form class="layui-form layui-col-md12 x-so layui-form-pane">
-      <!-- <input class="layui-input" placeholder="分类名" name="cate_name">
-      <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加</button> -->
-      <!--<input type="text" name="username"  placeholder="请输入分类名" autocomplete="off" class="layui-input">-->
-      <div class="layui-input-inline">
-          <select id="cateName" name="cateName">
-              <option th:each="category:${categories}"
-                      th:text="${category.getCateName()}"
-                      th:selected="${category.getCateName()}"
-                      th:name="${category.getCateName()}">
-              </option>
-          </select>
-      </div>
-      <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-    </form>
-  </div>
+  <!--<div class="layui-row">-->
+    <!--<form class="layui-form layui-col-md12 x-so layui-form-pane">-->
+      <!--&lt;!&ndash; <input class="layui-input" placeholder="分类名" name="cate_name">-->
+      <!--<button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加</button> &ndash;&gt;-->
+      <!--&lt;!&ndash;<input type="text" name="username"  placeholder="请输入分类名" autocomplete="off" class="layui-input">&ndash;&gt;-->
+      <!--<div class="layui-input-inline">-->
+          <!--<select id="cateName" name="cateName">-->
+              <!--<option th:each="category:${categories}"-->
+                      <!--th:text="${category.getCateName()}"-->
+                      <!--th:selected="${category.getCateName()}"-->
+                      <!--th:name="${category.getCateName()}">-->
+              <!--</option>-->
+          <!--</select>-->
+      <!--</div>-->
+      <!--<button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>-->
+    <!--</form>-->
+  <!--</div>-->
   <xblock>
     <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
     <!--<span class="x-right" style="line-height:40px">共有数据：88 条</span>-->

@@ -5,7 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import quwen.db.domain.Category;
+import quwen.db.domain.Comment;
+import quwen.db.domain.News;
 import quwen.db.domain.User;
+import quwen.db.service.CommentService;
+import quwen.db.service.NewsService;
 import quwen.db.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +25,14 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
+    private NewsService newsService;
+
+    @Autowired
+    private CommentService commentService;
+
+
+
+    @Autowired
     public UserController ( UserService userService ){
         this.userService = userService;
     }
@@ -33,6 +45,12 @@ public class UserController {
     @GetMapping("tolist")
     public String getUserList(Model model){
         List<User> users = userService.getAllUsers();
+        for (User eachUser:users) {
+            eachUser.updateComment_count();
+            eachUser.updateCollected_count();
+        }
+        int user_count = users.size();
+        model.addAttribute("user_count",user_count);
         model.addAttribute("users",users);
         return "user-list";
     }
@@ -110,6 +128,22 @@ public class UserController {
         List<User> users = userService.findSearch(user);
         model.addAttribute("users",users);
         return "user-list";
+    }
+
+    @RequestMapping("welcome")
+    public String welcome(Model model){
+        List<User> users = userService.getAllUsers();
+        int user_count = users.size();
+        model.addAttribute("user_count",user_count);
+
+        List<News> news = newsService.getAllNews();
+        int news_count = news.size();
+        model.addAttribute("news_count",news_count);
+
+        List<Comment> comments = commentService.getAllComment();
+        int comment_count = comments.size();
+        model.addAttribute("comment_count",comment_count);
+        return "welcome";
     }
 
 }
