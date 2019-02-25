@@ -27,7 +27,7 @@
             <!--<label>id</label>-->
             <!--<input type="text" name="id" readonly="readonly" th:field="${category.cateID}">-->
             <label for="commentID" class="layui-form-label">
-                <span class="x-red">*</span>评论ID
+                <span class="x-red">*</span>评论编号
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="commentID" name="commentID" th:field="${comment.commentID}" readonly="readonly" required="required" lay-verify="required"
@@ -36,21 +36,21 @@
         </div>
         <div class="layui-form-item" th:if="${isAdd}==true">
             <label for="tuserName" class="layui-form-label">
-                <span class="x-red">*</span>用户
+                <span class="x-red">*</span>用户编号
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="tuserName" name="tuserName" th:field="${comment.user.userID}" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item" th:if="${isAdd}==false">
-            <label for="fuserName" class="layui-form-label">
-                <span class="x-red">*</span>用户
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="fuserName" name="fuserName" th:field="${comment.user.userID}" required="required" lay-verify="required" readonly="readonly"
-                       autocomplete="off" class="layui-input">
-            </div>
+            <div class="layui-form-item" th:if="${isAdd}==false">
+                <label for="fuserName" class="layui-form-label">
+                    <span class="x-red">*</span>用户编号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="fuserName" name="fuserName" th:field="${comment.user.userID}" required="required" lay-verify="required" readonly="readonly"
+                           autocomplete="off" class="layui-input">
+                </div>
         </div>
         <div class="layui-form-item">
             <label for="cmtcontent" class="layui-form-label">
@@ -74,7 +74,7 @@
 
         <div class="layui-form-item" th:if="${isAdd}==false">
             <label for="newsID" class="layui-form-label">
-                <span class="x-red">*</span>新闻
+                <span class="x-red">*</span>新闻编号
             </label>
             <div class="layui-input-inline">
                 <input type="text" th:value="${comment.news.newsID}" id="newsID" name="newsID" readonly class="layui-input">
@@ -82,21 +82,13 @@
         </div>
         <div class="layui-form-item" th:if="${isAdd}==true">
             <label for="tnewsID" class="layui-form-label">
-                <span class="x-red">*</span>新闻
+                <span class="x-red">*</span>新闻编号
             </label>
             <div class="layui-input-inline">
                 <input type="text" th:value="${newsID}" id="tnewsID" name="newsID" class="layui-input" readonly>
             </div>
         </div>
-        <!--<div class="layui-form-item">-->
-        <!--<label for="L_repass" class="layui-form-label">-->
-        <!--</label>-->
-        <!--<input type="submit" value="提交"/>-->
 
-        <!--<button  class="layui-btn" lay-filter="add" lay-submit="">-->
-        <!--修改-->
-        <!--</button>-->
-        <!--</div>-->
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>

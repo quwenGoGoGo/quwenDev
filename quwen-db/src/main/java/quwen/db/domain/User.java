@@ -44,7 +44,7 @@ public class User {
 	private List<Collect> collects;
 
 
-	public long getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
 
