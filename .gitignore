@@ -6,7 +6,7 @@
 #.idea
 #*.iml
 out
-gen
+gens
 .idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_7.xml
 .idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_7.xml
 .idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_7.xml
