@@ -65,7 +65,7 @@
         <tbody>
         <tr th:each="User,iterStat:${users}">
             <td>
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+                <input type="checkbox" id="subcheck" name="subcheck" th:value="${User.userID}" lay-skin="primary">
             </td>
             <td th:text="${User.getUserID()}">1</td>
             <td th:text="${User.getNickname()}">老王</td>
