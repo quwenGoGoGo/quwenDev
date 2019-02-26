@@ -59,6 +59,11 @@ public class News {
     //设置在category表中的关联字段(外键)
     private Category category;
 
+    //新闻表中设置专题外键，多对一的关系
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "story_id")
+    private NewsStory newsStory;
+
     //新闻表关联收藏表，一条新闻对应多条收藏纪录
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Collect> collects;
@@ -203,5 +208,13 @@ public class News {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public NewsStory getNewsStory() {
+        return newsStory;
+    }
+
+    public void setNewsStory(NewsStory newsStory) {
+        this.newsStory = newsStory;
     }
 }
