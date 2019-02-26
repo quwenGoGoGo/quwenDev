@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.0</title>
+    <title>评论修改</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -23,7 +23,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form" action="" method="post">
-        <div class="layui-form-item" th:if="${isAdd}==false">
+        <div class="layui-form-item" th:if="${isadd}==false">
             <!--<label>id</label>-->
             <!--<input type="text" name="id" readonly="readonly" th:field="${category.cateID}">-->
             <label for="collectID" class="layui-form-label">
@@ -34,24 +34,23 @@
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item" th:if="${isAdd}==true">
-            <label for="tuserName" class="layui-form-label">
+        <div class="layui-form-item" th:if="${isadd}==false">
+            <label for="fuserID" class="layui-form-label">
                 <span class="x-red">*</span>用户编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="tuserName" name="tuserName" th:field="${collect.user.userID}" required="required" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" th:value="${collect.user.userID}" id="fuserID" name="userID" readonly class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item" th:if="${isAdd}==false">
-            <label for="fuserName" class="layui-form-label">
+        <div class="layui-form-item" th:if="${isadd}==true">
+            <label for="tuserID" class="layui-form-label">
                 <span class="x-red">*</span>用户编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="fuserName" name="fuserName" th:field="${collect.user.userID}" required="required" lay-verify="required" readonly="readonly"
-                       autocomplete="off" class="layui-input">
+                <input type="text" th:value="${userID}" id="tuserID" name="userID" class="layui-input" readonly>
             </div>
         </div>
+
 
         <div class="layui-form-item">
             <label for="collectdate" class="layui-form-label">
@@ -63,20 +62,22 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${isAdd}==false">
-            <label for="newsID" class="layui-form-label">
-                <span class="x-red">*</span>新闻编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" th:value="${collect.news.newsID}" id="newsID" name="newsID" readonly class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" th:if="${isAdd}==true">
+        <div class="layui-form-item" th:if="${isadd}==true">
             <label for="tnewsID" class="layui-form-label">
                 <span class="x-red">*</span>新闻编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" th:value="${newsID}" id="tnewsID" name="newsID" class="layui-input" readonly>
+                <input type="text" id="tnewsID" name="tnewsID" th:field="${collect.news.newsID}" required="required" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${isadd}==false">
+            <label for="fnewsID" class="layui-form-label">
+                <span class="x-red">*</span>新闻编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="fnewsID" name="fnewsID" th:field="${collect.news.newsID}" required="required" lay-verify="required" readonly="readonly"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -113,7 +114,7 @@
             // var index = parent.layer.getFrameIndex(window.name);
             // parent.layer.close(index);//关闭当前页
             $.ajax({
-                url:'/col/save',
+                url:'/col/saveuser',
                 cache: false,
                 // async:false,
                 method:'post',

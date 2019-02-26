@@ -14,6 +14,8 @@ import quwen.db.service.CategoryService;
 import quwen.db.service.NewsService;
 import quwen.db.service.StoryService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -142,6 +144,20 @@ public class NewsController {
         }
         newsService.addNews(news);
         return "success";
+    }
+
+    @RequestMapping("delAll")
+    public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+        String items = request.getParameter("delitems");// System.out.println(items);
+        String[] strs = items.split(",");
+
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                Long a = Long.parseLong(strs[i]);
+                newsService.deleteNews(a);
+            } catch (Exception e) {
+            }
+        }
     }
 
     @RequestMapping("delete")
