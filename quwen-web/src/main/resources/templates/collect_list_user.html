@@ -128,8 +128,8 @@
     })
   })
 
-  function add(obj, id, newsID) {
-    urls='/col/edit/'+id+'/'+newsID;
+  function add(obj, id, userID) {
+    urls='/col/editUser/'+id+'/'+userID;
     alert(urls);
     layer.open({
       type: 2,
@@ -138,7 +138,7 @@
       maxmin: true,
       shadeClose: true,
       shade:0.4,
-      title: '添加评论',
+      title: '添加收藏',
       content: urls
     });
   }
