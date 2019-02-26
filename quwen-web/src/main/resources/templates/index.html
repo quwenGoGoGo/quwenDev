@@ -20,7 +20,10 @@
 <body>
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="index.html">趣闻</a></div>
+        <div class="logo">
+            <a src="templates/welcome.html" th:_href="@{/user/welcome}">趣闻
+            </a>
+        </div>
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
@@ -162,7 +165,12 @@
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <!--<iframe src='welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>-->
+                <!--<a _href="/user/welcome" th:action="@{/user/welcome}">-->
+                <iframe src="templates/welcome.html" th:src="@{/user/welcome}" frameborder="0"></iframe>
+
+
+                </a>
             </div>
           </div>
         </div>

@@ -41,6 +41,8 @@ public class NewsController {
             eachNews.updateComment_count();
             eachNews.updateCollected_count();
         }
+        int news_count = news.size();
+        model.addAttribute("news_count",news_count);
         model.addAttribute("news",news);
         List<Category> categories = categoryService.getAllCategory();
         model.addAttribute("categoryList",categories);
