@@ -75,7 +75,7 @@
                 <a title="评论列表"  th:onclick="'javascript:getcmt('+this+','+${User.userID}+');'">
                     <i class="layui-icon">&#xe611;</i>
                 </a>
-                <a title="收藏列表" onclick="x_admin_show('修改密码','member-password.html',600,400)" href="javascript:;">
+                <a title="评论列表"  th:onclick="'javascript:getcollect('+this+','+${User.userID}+');'">
                     <i class="layui-icon">&#xe658;</i>
                 </a>
                 <a title="编辑"  th:onclick="'javascript:edit('+this+','+${User.getUserID()}+');'">
@@ -145,8 +145,8 @@
         });
     }
 
-    function get(obj,id){
-        urls='/comments/toList/'+id;
+    function getcollect(obj,id){
+        urls='/col/toListUser/'+id;
         // alert(urls);
         layer.open({
             type: 2,
@@ -155,7 +155,7 @@
             maxmin: true,
             shadeClose: true,
             shade:0.4,
-            title: '评论列表',
+            title: '收藏列表',
             content: urls
         });
     }
