@@ -22,10 +22,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="quwen-core" options="-parameters" />
-      <module name="quwen-db" options="-parameters" />
+      <module name="quwen-core" options="" />
+      <module name="quwen-db" options="" />
       <module name="quwen-web" options="" />
-      <module name="quwen-wx-api" options="-parameters" />
+      <module name="quwen-wx-api" options="" />
     </option>
   </component>
 </project>
