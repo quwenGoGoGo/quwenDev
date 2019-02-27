@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import quwen.db.domain.Category;
 import quwen.db.domain.News;
+import quwen.db.domain.NewsStory;
 import quwen.db.repository.NewsRepository;
 import quwen.db.service.NewsService;
 
@@ -87,5 +88,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void updateNews(News news){
         newsRepository.save(news);
+    }
+
+    @Override
+    public List<News> findNewsByStory(NewsStory newsStory){
+        return newsRepository.findNewsByNewsStory(newsStory);
     }
 }

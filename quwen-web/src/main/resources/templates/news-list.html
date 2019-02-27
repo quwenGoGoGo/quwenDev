@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/xadmin.css">
-    <link rel="stylesheet" href="/lib/layui/layui.css">
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
     <script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/xadmin.js"></script>
@@ -23,13 +23,7 @@
   
   <body class="layui-anim layui-anim-up">
     <div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
-      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:left" th:href="@{/news/toList}" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
     <div class="x-body">
@@ -75,7 +69,7 @@
         <thead>
           <tr>
             <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+              <input type="checkbox" id="quanxuan" onclick="selectAll(this.checked)">全选
             </th>
             <th>编号</th>
             <th>标题</th>
@@ -84,13 +78,13 @@
             <!--<th>阅读量</th>-->
             <th>收藏量</th>
             <th>评论量</th>
-            <th>状态</th>
+            <th>是否推荐</th>
             <th>操作</th></tr>
         </thead>
         <tbody>
           <tr th:each="News,iterStat:${news}">
             <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+              <input type="checkbox" id="subcheck" name="subcheck" th:value="${News.newsID}">
             </td>
             <td th:text="${iterStat.count}">1</td>
             <td th:text="${News.getTitle()}">阿里：马云从未转让和退出淘宝股份也没有这个打算</td>
@@ -99,8 +93,7 @@
             <!--<td th:text="${News.getView_count()}">40000</td>-->
             <td th:text="${News.getCollected_count()}">1028</td>
             <td th:text="${News.getComment_count()}">1122</td>
-            <td th:text="${News.getStatus()}==1?'已推荐':'推荐'" class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini"><a onclick="member_stop(this,'10001')" href="javascript:;">已推荐</a></span></td>
+            <td th:text="${News.getStatus()}==1?'是':'否'" class="td-status"></td>
             <td class="td-manage">
               <a title="评论列表"  th:onclick="'javascript:get('+this+','+${News.newsID}+');'">
                 <i class="layui-icon">&#xe611;</i>
@@ -164,6 +157,18 @@
           })
       })
 
+      function selectAll(selectStatus){//传入参数（全选框的选中状态）
+        //根据name属性获取到单选框的input，使用each方法循环设置所有单选框的选中状态
+        if(selectStatus){
+          $("input[name='subcheck']").each(function(i,n){
+            n.checked = true;
+          });
+        }else{
+          $("input[name='subcheck']").each(function(i,n){
+            n.checked = false;
+          });
+        }
+      }
 
       // 编辑
       function edit(obj,id){
@@ -246,15 +251,32 @@
 
 
 
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+      function delAll() {
+        //判断至少写了一项
+        var checkedNum = $("input[name='subcheck']:checked").length;
+        if (checkedNum == 0) {
+          alert("请至少选择一项!");
+          return false;
+        }
+        if (confirm("确定删除所选项目?")) {
+          var checkedList = new Array();
+          $("input[name='subcheck']:checked").each(function () {
+            checkedList.push($(this).val());
+          });
+          $.ajax({
+            type: 'post',
+            url: '/news/delAll',
+            data: {"delitems": checkedList.toString()},
+            datatype: "html",
+            success: function (data) {
+              $("[name='checkbox2']:checkbox").attr("checked", false);
+              location.reload();//页面刷新
+            },
+            error: function (data) {
+              art.dialog.tips('删除失败!');
+            }
+          });
+        }
       }
     </script>
     <script>var _hmt = _hmt || []; (function() {

@@ -12,8 +12,11 @@ import quwen.db.domain.News;
 import quwen.db.domain.User;
 import quwen.db.service.CollectService;
 import quwen.db.service.NewsService;
+import quwen.db.service.UserService;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -28,6 +31,9 @@ public class CollectController {
     @Autowired
     private NewsService newsService;
 
+    @Autowired
+    UserService userService;
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,24 +46,28 @@ public class CollectController {
         model.addAttribute("collects",collects);
         return "collect-list";
     }
-//    @GetMapping("ulist")
-//    public String uCollectList(Model model) {
-//        List<Collect> collects=collectService.getAllCollect();
-//        model.addAttribute("collects",collects);
-//        return "ucollect-list";
-//    }
+
 
     @GetMapping("toList/{newsid}")
-    public String getNewsCollects(Model model, @PathVariable("newsid") Long newsid){
+    public String getNewsCollect(Model model, @PathVariable("newsid") Long newsid){
         System.out.println(newsid);
+        model.addAttribute("newsID", newsid);
         List<Collect> collects = collectService.findByNews_NewsID(newsid);
         model.addAttribute("collects", collects);
         return "collect-list";
     }
 
+    @GetMapping("toListUser/{userid}")
+    public String getAllCollects(Model model, @PathVariable("userid") Long userid) {
+        System.out.println(userid);
+        model.addAttribute("userID", userid);
+        List<Collect> collects = collectService.getAllCollectByUserID(userid);
+        model.addAttribute("collects", collects);
+        return "collect_list_user";
+    }
 
-    @RequestMapping("edit/{id}")
-    public String edit(Model model, @PathVariable("id") Long id) {
+    @RequestMapping("edit/{id}/{newsID}")
+    public String edit(Model model, @PathVariable("id") Long id ,@PathVariable("newsID") Long newsID) {
         System.out.println(id);
         if (id > 0) {
             System.out.println(id);
@@ -66,6 +76,7 @@ public class CollectController {
         } else {
             model.addAttribute("isAdd", true);
             model.addAttribute("collect", new Collect());
+            model.addAttribute("newsID", newsID);
         }
         System.out.println("edit");
         return "collect-edit";
@@ -74,11 +85,14 @@ public class CollectController {
 
     @PostMapping("save")
     @ResponseBody
-    public String save(@ModelAttribute Collect collect){
+    public String save(@ModelAttribute Collect collect, @RequestParam(value = "newsID") Long newsID){
         if(collect == null)
             return "fail";
 
         System.out.println(collect.getCollectID());
+
+        News news = newsService.getNewsByID(newsID);
+        collect.setNews(news);
 
         if(collect.getCollectID()!= null && collect.getCollectID() > 0)
             collectService.updateCollect(collect);
@@ -89,48 +103,45 @@ public class CollectController {
     }
 
 
-    //{"userName":"gogo","collectID":"1","time":"2019-02-19 19:01:39.0"}
-//    @PostMapping("save")
-//    @ResponseBody
-//    public String save(@RequestParam HashMap<String,Object> map)throws ParseException{
-//        if(map == null || map.size() ==0){
-//            return null;
-//        }
-//        Collect collect = new Collect();
-//        collect.setCollectID(Long.parseLong((String)map.get("collectID")));
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        collect.setTime(simpleDateFormat.parse((String)map.get("time")));
-//        if((simpleDateFormat.parse((String)map.get("time")))!=null && (Long.parseLong(map.get("collectID").toString()))>0){
-//            String colID = map.get("collectID").toString();
-//            System.out.println("edit"+map.get("collectID").toString());
-//            collect.setCollectID(Long.parseLong(colID));
-//            collectService.updateCollect(collect);
 
-//        }else {
-//            collectService.addCollect(collect);
-//        }
-//        return "ok";
-//    }
+    @RequestMapping("editUser/{id}/{userID}")
+    public String editUser(Model model,@PathVariable("id") Long id, @PathVariable("userID") Long userID){
+        System.out.println(id);
 
-//    @RequestMapping("add")
-//    @ResponseBody
-//    public String addNews(
-//                          @RequestParam(value = "collectID",defaultValue="0") Long collectID,
-//                          @RequestParam(value = "user.username") String username,
-//                          @RequestParam(value = "time") Date time,
-//                          @RequestParam(value = "new.newsID",defaultValue="0")Long newsID,
-//                          Model model) throws Exception{
-//
-//        Collect collect=new Collect();
-//        collect.setCollectID(collectID);
-//        collect.setTime(time);
-//        User user =collectService.findUserByName(username);
-//        News news=newsService.findNewsByNewsID(newsID);
-//        collect.setUser(user);
-//        collect.setNews(news);
-//        collectService.addCollect(collect);
-//        return "success";
-//    }
+        if(id > 0){
+            model.addAttribute("isadd", false);
+            model.addAttribute("collect", collectService.getCollectByID(id));
+            System.out.println(id);
+        }
+        else{
+            model.addAttribute("isadd", true);
+            model.addAttribute("collect", new Collect());
+            model.addAttribute("userID", userID);
+        }
+        System.out.println("edit");
+
+        return "collect_edit_user";
+    }
+
+    @PostMapping("saveuser")
+    @ResponseBody
+    public String saveUser(@ModelAttribute Collect collect,
+                           @RequestParam(value = "userID") Long userID){
+        if(collect == null)
+            return "fail";
+
+        System.out.println(collect.getCollectID());
+
+        User user = userService.getUserByID(userID);
+        collect.setUser(user);
+
+        if(collect.getCollectID() != null && collect.getCollectID() > 0)
+            collectService.updateCollect(collect);
+        else
+            collectService.addCollect(collect);
+
+        return "redirect:/col/list";
+    }
 
     @RequestMapping("del")
     @ResponseBody
@@ -141,5 +152,20 @@ public class CollectController {
         collectService.deleteCollectByID(id);
         return "success";
     }
+
+    @RequestMapping("delAll")
+    public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+        String items = request.getParameter("delitems");// System.out.println(items);
+        String[] strs = items.split(",");
+
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                Long a = Long.parseLong(strs[i]);
+                collectService.deleteCollectByID(a);
+            } catch (Exception e) {
+            }
+        }
+    }
+
 
 }

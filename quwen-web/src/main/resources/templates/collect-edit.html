@@ -23,55 +23,63 @@
 <body>
 <div class="x-body">
     <form class="layui-form" action="" method="post">
-        <div class="layui-form-item"  th:if="${isAdd}==false">
-        <!--<label>id</label>-->
-        <!--<input type="text" name="id" readonly="readonly" th:field="${category.cateID}">-->
-            <label for="colId" class="layui-form-label">
-                <span class="x-red">*</span>收藏ID
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="colId" name="collectID" th:field="${collect.collectID}" required="" lay-verify="sort"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="newsID" class="layui-form-label">
-                <span class="x-red">*</span>新闻ID
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="newsID" name="newsID" th:field="${collect.news.newsID}" required=""
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item"  >
+        <div class="layui-form-item" th:if="${isAdd}==false">
             <!--<label>id</label>-->
             <!--<input type="text" name="id" readonly="readonly" th:field="${category.cateID}">-->
-            <label for="username" class="layui-form-label">
-                <span class="x-red">*</span>用户名
+            <label for="collectID" class="layui-form-label">
+                <span class="x-red">*</span>收藏编号
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="username" th:field="${collect.user.userID}" required="" lay-verify="required"
+                <input type="text" id="collectID" name="collectID" th:field="${collect.collectID}" readonly="readonly" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
+        <div class="layui-form-item" th:if="${isAdd}==true">
+            <label for="tuserName" class="layui-form-label">
+                <span class="x-red">*</span>用户编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="tuserName" name="tuserName" th:field="${collect.user.userID}" required="required" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${isAdd}==false">
+            <label for="fuserName" class="layui-form-label">
+                <span class="x-red">*</span>用户编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="fuserName" name="fuserName" th:field="${collect.user.userID}" required="required" lay-verify="required" readonly="readonly"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
         <div class="layui-form-item">
-            <label for="colTime" class="layui-form-label">
+            <label for="collectdate" class="layui-form-label">
                 <span class="x-red">*</span>收藏时间
             </label>
             <div class="layui-input-inline">
-                <input type="date" id="colTime" name="time" th:field="${collect.time}" required="required" lay-verify="required"
+                <input type="date" id="collectdate" name="collectdate" th:field="${collect.time}" required="required" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <!--<div class="layui-form-item">-->
-        <!--<label for="L_repass" class="layui-form-label">-->
-        <!--</label>-->
-        <!--<input type="submit" value="提交"/>-->
 
-        <!--<button  class="layui-btn" lay-filter="add" lay-submit="">-->
-        <!--修改-->
-        <!--</button>-->
-        <!--</div>-->
+        <div class="layui-form-item" th:if="${isAdd}==false">
+            <label for="newsID" class="layui-form-label">
+                <span class="x-red">*</span>新闻编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" th:value="${collect.news.newsID}" id="newsID" name="newsID" readonly class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${isAdd}==true">
+            <label for="tnewsID" class="layui-form-label">
+                <span class="x-red">*</span>新闻编号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" th:value="${newsID}" id="tnewsID" name="newsID" class="layui-input" readonly>
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>
