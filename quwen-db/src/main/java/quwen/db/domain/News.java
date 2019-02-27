@@ -27,7 +27,7 @@ public class News {
     private String author;
 
     //新闻发布时间，设置格式为日期
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ctime;
 
     //新闻关键字

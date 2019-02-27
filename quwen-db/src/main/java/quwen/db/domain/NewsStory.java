@@ -10,6 +10,8 @@ public class NewsStory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long storyID;
 
+    //新闻标题,唯一且不为空
+    @Column(unique = true, nullable = false)
     private String keywords;
     private String theme;
     private String picture;
