@@ -174,6 +174,8 @@ public class NewsController {
         newsModel.setCategory(category);
         List<News> news = newsService.findSearch(newsModel);
         model.addAttribute("news",news);
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categoryList",categories);
         return "news-list";
     }
 
