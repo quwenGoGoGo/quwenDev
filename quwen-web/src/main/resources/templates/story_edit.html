@@ -22,7 +22,7 @@
 
 <body>
 <div class="x-body">
-    <form class="layui-form" action="" method="post">
+    <form class="layui-form" action="" method="post" id="storyForm">
         <div class="layui-form-item" th:if="${isAdd}==false">
             <!--<label>id</label>-->
             <!--<input type="text" name="id" readonly="readonly" th:field="${category.cateID}">-->
@@ -51,6 +51,15 @@
         <input type="text" id="theme" name="theme" th:field="${story.theme}" required="" lay-verify="sort"
         autocomplete="off" class="layui-input">
         </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                专题图片
+            </label>
+            <div class="layui-input-block" style="width:300px;">
+                <input type="file" id="picture" name="picture"  lay-filter="" th:field="${story.picture}"/>
+            </div>
         </div>
 
         <div class="layui-form-item">
@@ -83,14 +92,18 @@
         });
         //监听提交
         form.on('submit(add)', function(data){
-            // var index = parent.layer.getFrameIndex(window.name);
-            // parent.layer.close(index);//关闭当前页
+            var formData = new FormData($("#storyForm")[0]);
+            if(!formData.has("newsID")){
+                formData.append("newsID", 0);
+            }
             $.ajax({
                 url:'/story/save',
                 cache: false,
                 // async:false,
                 method:'post',
-                data:data.field,
+                data:formData,
+                processData:false,
+                contentType:false,
                 beforeSend:function(){
                     l_index=layer.load(1,{
                         shade:[0.5,'#DBDBDB']
