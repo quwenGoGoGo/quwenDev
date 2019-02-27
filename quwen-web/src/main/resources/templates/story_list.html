@@ -126,6 +126,19 @@
         });
     }
 
+    function selectAll(selectStatus){//传入参数（全选框的选中状态）
+        //根据name属性获取到单选框的input，使用each方法循环设置所有单选框的选中状态
+        if(selectStatus){
+            $("input[name='subcheck']").each(function(i,n){
+                n.checked = true;
+            });
+        }else{
+            $("input[name='subcheck']").each(function(i,n){
+                n.checked = false;
+            });
+        }
+    }
+
     function del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
@@ -142,29 +155,29 @@
     }
 
 
-    function delAll (argument) {
+    function delAll(){
+        //判断至少写了一项
         var checkedNum = $("input[name='subcheck']:checked").length;
         if(checkedNum==0){
-            alert("请至少选择一项");
+            alert("请至少选择一项!");
             return false;
         }
-        if(confirm("确定删除所选项目？")){
+        if(confirm("确定删除所选项目?")){
             var checkedList = new Array();
-            $("input[name='subcheck']:checked").each(function () {
+            $("input[name='subcheck']:checked").each(function(){
                 checkedList.push($(this).val());
             });
             $.ajax({
                 type:'post',
-                url: '/cate/delAll',
-                data: {"delitems": checkedList.toString()},
-                datatype: "html",
-                success: function (data) {
+                url:'/story/delAll',
+                data:{"delitems":checkedList.toString()},
+                datatype:"html",
+                success:function(data){
                     $("[name='checkbox2']:checkbox").attr("checked",false);
-                    location.reload();
+                    location.reload();//页面刷新
                 },
-                error:function (data) {
+                error:function(data){
                     art.dialog.tips('删除失败!');
-
                 }
             });
         }
