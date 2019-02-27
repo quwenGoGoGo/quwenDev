@@ -9,6 +9,8 @@ import quwen.db.domain.Category;
 import quwen.db.domain.NewsStory;
 import quwen.db.service.StoryService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +100,19 @@ public class StoryController {
         return "success";
     }
 
+    @RequestMapping("delAll")
+    public void batchDeletes(HttpServletRequest request, HttpServletResponse response) {
+        String items = request.getParameter("delitems");// System.out.println(items);
+        String[] strs = items.split(",");
 
+        for (int i = 0; i < strs.length; i++) {
+            try {
+                Long a = Long.parseLong(strs[i]);
+                storyService.deleteNewsStory(a);
+            } catch (Exception e) {
+            }
+        }
+    }
 
 
 }

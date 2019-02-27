@@ -2,8 +2,6 @@ package quwen.db.service;
 
 import org.springframework.stereotype.Service;
 import quwen.db.domain.Collect;
-import quwen.db.domain.User;
-import quwen.db.domain.News;
 
 import java.util.List;
 

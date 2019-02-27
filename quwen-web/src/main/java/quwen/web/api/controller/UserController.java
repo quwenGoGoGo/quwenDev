@@ -77,7 +77,7 @@ public class UserController {
         User user = new User();
         user.setNickname((String)map.get("nickname"));
         user.setCollect_count(Integer.parseInt(map.get("collect_count").toString()));
-        user.setComment_count(Integer.parseInt(map.get("comment_count").toString()));
+//        user.setComment_count(Integer.parseInt(map.get("comment_count").toString()));
         if(map.get("userID")!=null && (Long.parseLong(map.get("userID").toString()))>0){
             String userID = map.get("userID").toString();
             System.out.println("edit"+map.get("userID").toString());
