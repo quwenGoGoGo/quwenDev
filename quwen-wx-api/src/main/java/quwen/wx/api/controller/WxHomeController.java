@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import quwen.core.util.ResponseUtil;
 import quwen.db.domain.Category;
 import quwen.db.domain.News;
+import quwen.db.domain.NewsStory;
 import quwen.db.service.CategoryService;
 import quwen.db.service.NewsService;
 import quwen.db.service.StoryService;
@@ -69,9 +70,18 @@ public class WxHomeController {
         //executorService.submit(newsListTask);
 
         List<CategoryVo> category = categoryMapper.CategoryListPoToVo(categoryService.getAllCategory());
-        List<NewsStoryVo> stories = storyMapper.StoryListPoToVo(storyService.findAll());
+        List<NewsStory> newsStories = storyService.findAll();
+//        for(NewsStory newsStory:newsStories){
+//            if(newsStory.getStoryID()==1){
+//                newsStories.remove(newsStory);
+//            }
+//            if(newsStory.getNews().size()<3){
+//                newsStories.remove(newsStory);
+//            }
+//        }
+        List<NewsStoryVo> stories = storyMapper.StoryListPoToVo(newsStories);
         List<NewsVo> stickNews = newsMapper.NewsListPoToVo(newsService.findAllByStickIsTrue());
-        List<NewsVo> newList = newsMapper.NewsListPoToVo(newsService.findAllByStickIsFalse());
+        List<NewsVo> newList = newsMapper.NewsListPoToVo(newsService.findNewsByStatusIsTrue());
 
         try{
             data.put("category", category);
@@ -97,4 +107,17 @@ public class WxHomeController {
         data.put("newsList", news);
         return ResponseUtil.ok(data);
     }
+
+    @GetMapping("/story")
+    public Object NewsStoryList(@NotNull Long storyID){
+        Map<String, Object> data = new HashMap<>();
+        NewsMapper newsMapper = new NewsMapper();
+        NewsStory newsStory = storyService.findByStoryID(storyID);
+        List<NewsVo> news = newsMapper.NewsListPoToVo(newsService.findNewsByStoryAndOrderByCtime(newsStory));
+
+        data.put("newsStory", news);
+        return ResponseUtil.ok(data);
+
+    }
+
 }

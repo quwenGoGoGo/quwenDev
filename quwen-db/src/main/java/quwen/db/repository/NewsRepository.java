@@ -20,4 +20,8 @@ public interface NewsRepository extends JpaRepository<News, Long>,JpaSpecificati
 
     public List<News> findNewsByNewsStory(NewsStory newsStory);
 
+    public List<News> findNewsByNewsStoryOrderByCtimeDesc(NewsStory newsStory);
+
+    public List<News> findNewsByStatusIsTrue();
+
 }
