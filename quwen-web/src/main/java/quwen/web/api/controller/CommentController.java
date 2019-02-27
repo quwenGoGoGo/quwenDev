@@ -162,12 +162,29 @@ public class CommentController {
         }
     }
 
-    @RequestMapping("search")
-    public String searchForNews(@RequestParam("searchByContent")String content, Model model){
+    @RequestMapping("search/{id}")
+    public String searchForNews(@RequestParam("searchByContent")String content,@PathVariable("id") Long id, Model model){
+        System.out.println(id);
         Comment comment = new Comment();
         comment.setCommentContent(content);
+        News news = newsService.getNewsByID(id);
+        comment.setNews(news);
         List<Comment> comments = commentService.findSearch(comment);
         model.addAttribute("cmts",comments);
+        model.addAttribute("newsID", id);
         return "comment_list";
+    }
+
+    @RequestMapping("search_user/{id}")
+    public String searchForUser(@RequestParam("searchByContent")String content,@PathVariable("id") Long id, Model model){
+        System.out.println(id);
+        Comment comment = new Comment();
+        comment.setCommentContent(content);
+        User user = userService.getUserByID(id);
+        comment.setUser(user);
+        List<Comment> comments = commentService.findSearch_user(comment);
+        model.addAttribute("cmts",comments);
+        model.addAttribute("userID", id);
+        return "comment_list_user";
     }
 }

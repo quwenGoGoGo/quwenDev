@@ -22,4 +22,6 @@ public interface CommentService {
     List<Comment> getAllCommentByCommentContent(String commentContent);
 
     List<Comment> findSearch(Comment comment);
+
+    List<Comment> findSearch_user(Comment comment);
 }
