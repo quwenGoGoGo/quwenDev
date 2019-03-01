@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import quwen.db.domain.Category;
+import quwen.db.domain.Collect;
 import quwen.db.domain.News;
 import quwen.db.domain.NewsStory;
 import quwen.db.repository.NewsRepository;
@@ -105,5 +106,6 @@ public class NewsServiceImpl implements NewsService {
     public List<News> findNewsByStoryAndOrderByCtime(NewsStory newsStory){
         return newsRepository.findNewsByNewsStoryOrderByCtimeDesc(newsStory);
     }
+
 
 }

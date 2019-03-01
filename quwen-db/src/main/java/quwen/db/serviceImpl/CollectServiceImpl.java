@@ -45,4 +45,9 @@ public class CollectServiceImpl implements CollectService{
     public List<Collect> getAllCollectByUserID(Long userID){
         return collectRepository.findByUser_UserID(userID);
     }
+
+    @Override
+    public List<Collect> hasCollect(Long newsID, String nickName){
+        return collectRepository.findByNews_NewsIDAndUser_Nickname(newsID, nickName);
+    }
 }
