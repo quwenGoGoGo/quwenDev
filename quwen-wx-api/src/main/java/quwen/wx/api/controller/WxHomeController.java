@@ -47,7 +47,7 @@ public class WxHomeController {
 
     private static ThreadPoolExecutor executorService = new ThreadPoolExecutor(9, 9, 1000, TimeUnit.MILLISECONDS, WORK_QUEUE, HANDLER);
     @GetMapping("/index")
-    public Object index(@NotNull String nickName){
+    public Object index(){
         if(HomeCacheManager.hasData(HomeCacheManager.INDEX)){
             return ResponseUtil.ok(HomeCacheManager.getCacheData(HomeCacheManager.INDEX));
         }
@@ -91,16 +91,11 @@ public class WxHomeController {
         List<NewsStoryVo> stories = storyMapper.StoryListPoToVo(newsStories);
 
         List<News> news = newsService.findNewsByStatusIsTrue();
-        List<NewsVo> newsList = newsMapper.NewsListPoToVo(news);
-        for(int i=0; i<news.size(); i++){
-            List<Collect> collect = collectService.hasCollect(news.get(i).getNewsID(), nickName);
-            if(collect.size()>0){
-                newsList.get(i).setCollect(true);
-            }
-            else {
-                newsList.get(i).setCollect(false);
-            }
+        for (News eachNews:news) {
+            eachNews.updateComment_count();
+            eachNews.updateCollected_count();
         }
+        List<NewsVo> newsList = newsMapper.NewsListPoToVo(news);
 
         try{
             data.put("category", category);
@@ -116,21 +111,16 @@ public class WxHomeController {
     }
 
     @GetMapping("/cate")
-    public Object ListByCate(@NotNull Long cateID, @NotNull String nickName){
+    public Object ListByCate(@NotNull Long cateID){
         Map<String, Object> data = new HashMap<>();
         NewsMapper newsMapper = new NewsMapper();
         Category category = categoryService.getCategoryByID(cateID);
         List<News> newsPos = newsService.findNewsByCategory(category);
-        List<NewsVo> newsVos = newsMapper.NewsListPoToVo(newsPos);
-        for(int i=0; i<newsPos.size(); i++){
-            List<Collect> collect = collectService.hasCollect(newsPos.get(i).getNewsID(), nickName);
-            if(collect.size()>0){
-                newsVos.get(i).setCollect(true);
-            }
-            else {
-                newsVos.get(i).setCollect(false);
-            }
+        for (News eachNews:newsPos) {
+            eachNews.updateComment_count();
+            eachNews.updateCollected_count();
         }
+        List<NewsVo> newsVos = newsMapper.NewsListPoToVo(newsPos);
 
         data.put("newsList", newsVos);
         return ResponseUtil.ok(data);
@@ -141,22 +131,15 @@ public class WxHomeController {
         Map<String, Object> data = new HashMap<>();
         NewsMapper newsMapper = new NewsMapper();
         NewsStory newsStory = storyService.findByStoryID(storyID);
-        List<NewsVo> news = newsMapper.NewsListPoToVo(newsService.findNewsByStoryAndOrderByCtime(newsStory));
+        List<News> newsPos = newsService.findNewsByStoryAndOrderByCtime(newsStory);
+        for (News eachNews:newsPos) {
+            eachNews.updateComment_count();
+            eachNews.updateCollected_count();
+        }
+        List<NewsVo> news = newsMapper.NewsListPoToVo(newsPos);
 
         data.put("newsStory", news);
         return ResponseUtil.ok(data);
-    }
-
-    @GetMapping("/addCollect")
-    public Object addCollect(@NotNull Long newsID, @NotNull String nickName){
-        User user = userService.findByNickName(nickName);
-        News news = newsService.getNewsByID(newsID);
-        Collect collect = new Collect();
-        collect.setNews(news);
-        collect.setUser(user);
-        collect.setTime(new Date());
-        collectService.addCollect(collect);
-        return ResponseUtil.ok();
     }
 
 }

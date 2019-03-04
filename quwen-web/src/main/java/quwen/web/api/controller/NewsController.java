@@ -44,6 +44,8 @@ public class NewsController {
     @GetMapping("toList")
     public String getNewsList(Model model){
         List<News> news = newsService.getAllNews();
+        Category cate = news.get(0).getCategory();
+        System.out.println(cate.getCateName());
         for (News eachNews:news) {
             eachNews.updateComment_count();
             eachNews.updateCollected_count();
