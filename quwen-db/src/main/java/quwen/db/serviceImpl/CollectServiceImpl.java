@@ -50,4 +50,9 @@ public class CollectServiceImpl implements CollectService{
     public List<Collect> hasCollect(Long newsID, String nickName){
         return collectRepository.findByNews_NewsIDAndUser_Nickname(newsID, nickName);
     }
+
+    @Override
+    public void delete(Collect collect){
+        collectRepository.delete(collect);
+    }
 }

@@ -98,4 +98,13 @@ public class WxNewsController {
         return ResponseUtil.ok();
     }
 
+    @GetMapping("cancelCollect")
+    public Object cancelCollect(@NotNull Long newsID, @NotNull String nickName){
+        List<Collect> collect = collectService.hasCollect(newsID, nickName);
+        for(Collect collect1:collect){
+            collectService.delete(collect1);
+        }
+        return ResponseUtil.ok();
+    }
+
 }
