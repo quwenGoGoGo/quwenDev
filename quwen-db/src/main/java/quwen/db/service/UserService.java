@@ -33,4 +33,6 @@ public interface UserService {
 
 	List<User> findSearch(User user);
 
+	public User findByNickName(String nickName);
+
 }

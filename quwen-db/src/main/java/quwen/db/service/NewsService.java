@@ -2,6 +2,7 @@ package quwen.db.service;
 
 import org.springframework.stereotype.Service;
 import quwen.db.domain.Category;
+import quwen.db.domain.Collect;
 import quwen.db.domain.News;
 import quwen.db.domain.NewsStory;
 

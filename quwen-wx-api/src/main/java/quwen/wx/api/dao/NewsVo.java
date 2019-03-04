@@ -17,6 +17,7 @@ public class NewsVo {
     private Integer view_count;
     private Integer collected_count;
     private Integer comment_count;
+    private boolean isCollect;
 
     public Long getNewsID() {
         return newsID;
@@ -128,5 +129,13 @@ public class NewsVo {
 
     public void setComment_count(Integer comment_count) {
         this.comment_count = comment_count;
+    }
+
+    public boolean isCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(boolean collect) {
+        isCollect = collect;
     }
 }
