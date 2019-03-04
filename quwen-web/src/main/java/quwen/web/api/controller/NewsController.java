@@ -132,7 +132,8 @@ public class NewsController {
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
-                String picUrl = "http://localhost:8080/images/" + newName;
+                //String picUrl = "http://localhost:8080/images/" + newName;//本地版
+                String picUrl = "http://111.230.21.216:8080/images/" + newName;//服务器版
                 file.transferTo(new File(pathName));
                 news.setPicUrl(picUrl);
             }catch (FileNotFoundException e){
