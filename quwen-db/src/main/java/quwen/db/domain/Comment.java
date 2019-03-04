@@ -14,6 +14,7 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(unique = true, nullable = false)
     private String commentContent;
 
     @Temporal(TemporalType.DATE)
