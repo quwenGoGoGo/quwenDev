@@ -126,7 +126,7 @@ public class NewsController {
 
                 //获取文件名的后缀
                 String suffixName = fileName.substring(fileName.lastIndexOf("."));
-                String filePath =tomcat_path + "\\quwen-wx-api\\src\\main\\resources\\static\\images\\";
+                String filePath =tomcat_path + "\\quwen-wx-api\\src\\main\\resources\\static\\images\\newsImg\\";
                 String newName = UUID.randomUUID()  + suffixName;
                 String pathName = filePath + newName;
                 BufferedOutputStream out = new BufferedOutputStream(
@@ -134,8 +134,8 @@ public class NewsController {
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
-                //String picUrl = "http://localhost:8080/images/" + newName;//本地版
-                String picUrl = "http://111.230.21.216:8080/images/" + newName;//服务器版
+//                String picUrl = "http://localhost:8080/images/" + newName;//本地版
+                String picUrl = "http://111.230.21.216:8080/images/newsImg/" + newName;//服务器版
                 file.transferTo(new File(pathName));
                 news.setPicUrl(picUrl);
             }catch (FileNotFoundException e){
