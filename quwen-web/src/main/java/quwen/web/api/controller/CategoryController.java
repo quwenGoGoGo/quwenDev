@@ -19,8 +19,8 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("index")
-    public String index(){return "index";}
+//    @GetMapping("index")
+//    public String index(){return "index";}
 
     @GetMapping("toList")
     public String geCategoryList(Model model){

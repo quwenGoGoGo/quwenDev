@@ -24,4 +24,14 @@ $(function () {
             })
         }
     )
+    $("#checkout").click(
+        function () {
+            util.getRequest(api.logout).then((res)=>{
+                console.log(res);
+                window.location.reload();
+            }).catch((res)=>{
+                console.log(res);
+            })
+        }
+    )
 })
