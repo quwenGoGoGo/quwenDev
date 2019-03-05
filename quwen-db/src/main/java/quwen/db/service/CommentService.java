@@ -24,4 +24,6 @@ public interface CommentService {
     List<Comment> findSearch(Comment comment);
 
     List<Comment> findSearch_user(Comment comment);
+
+    List<Comment> findByUser_nickName(String nickname);
 }

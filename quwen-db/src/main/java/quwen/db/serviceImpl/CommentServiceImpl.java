@@ -104,4 +104,9 @@ public class CommentServiceImpl implements CommentService {
         });
         return result;
     }
+
+    @Override
+    public List<Comment> findByUser_nickName(String nickname){
+        return commentRepository.findByUser_Nickname(nickname);
+    }
 }

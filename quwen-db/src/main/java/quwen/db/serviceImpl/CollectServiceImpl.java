@@ -55,4 +55,9 @@ public class CollectServiceImpl implements CollectService{
     public void delete(Collect collect){
         collectRepository.delete(collect);
     }
+
+    @Override
+    public List<Collect> findByUser_nickName(String nickname){
+        return collectRepository.findByUser_Nickname(nickname);
+    }
 }

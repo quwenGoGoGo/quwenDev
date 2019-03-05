@@ -1,14 +1,23 @@
 package quwen.wx.api.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import quwen.core.util.ResponseUtil;
+import quwen.db.domain.Collect;
+import quwen.db.domain.News;
+import quwen.db.service.CollectService;
+import quwen.db.service.NewsService;
+import quwen.wx.api.dao.NewsVo;
 import quwen.wx.api.dao.UserInfo;
 import quwen.wx.api.dao.UserToken;
 import quwen.wx.api.dao.WxLoginInfo;
@@ -25,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import me.chanjar.weixin.common.error.WxErrorException;
+import quwen.wx.api.util.NewsMapper;
 
 @RestController
 @RequestMapping("/wx/auth")
@@ -36,6 +46,11 @@ public class WxAuthController {
 	private WxMaService wxService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CollectService collectService;
+	@Autowired
+	private NewsService newsService;
+
 	@RequestMapping("login_by_weixin")
 	public Object loginByWeiXin(@RequestBody WxLoginInfo wxLoginInfo, HttpServletRequest request) {
 		String code= wxLoginInfo.getCode();
@@ -79,7 +94,6 @@ public class WxAuthController {
 		result.put("userInfo", userInfo);
 		return ResponseUtil.ok(result);
 	}
-
 
 
 }

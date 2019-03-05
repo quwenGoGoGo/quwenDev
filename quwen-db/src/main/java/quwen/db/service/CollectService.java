@@ -17,5 +17,6 @@ public interface CollectService {
     List<Collect> getAllCollectByUserID(Long userID);
     public List<Collect> hasCollect(Long newsID, String nickName);
     void delete(Collect collect);
+    List<Collect> findByUser_nickName(String nickname);
 }
 
