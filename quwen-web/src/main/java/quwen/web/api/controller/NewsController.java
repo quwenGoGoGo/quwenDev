@@ -54,6 +54,7 @@ public class NewsController {
         model.addAttribute("news_count",news_count);
         model.addAttribute("news",news);
         List<Category> categories = categoryService.getAllCategory();
+        categories.add(new Category());
         model.addAttribute("categoryList",categories);
         return "news-list";
     }

@@ -93,7 +93,7 @@
             <!--<td th:text="${News.getView_count()}">40000</td>-->
             <td th:text="${News.getCollected_count()}">1028</td>
             <td th:text="${News.getComment_count()}">1122</td>
-            <td th:text="${News.isStatus()}==1?'是':'否'" class="td-status"></td>
+            <td th:text="${News.isStatus()}?'是':'否'" class="td-status"></td>
             <td class="td-manage">
               <a title="评论列表"  th:onclick="'javascript:get('+this+','+${News.newsID}+');'">
                 <i class="layui-icon">&#xe611;</i>
